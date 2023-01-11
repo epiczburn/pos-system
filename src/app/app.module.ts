@@ -33,6 +33,10 @@ import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 import {InputNumberModule} from 'primeng/inputnumber';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import {CardModule} from 'primeng/card';
+import { UsersComponent } from './users/users.component';
+import { ProducttypeComponent } from './producttype/producttype.component';
+import { CompanyComponent } from './company/company.component';
+import { LinenotifyComponent } from './linenotify/linenotify.component';
 
 
 
@@ -45,6 +49,10 @@ import {CardModule} from 'primeng/card';
     LoginComponent,
     DashboardComponent,
     ButtonComponent,
+    UsersComponent,
+    ProducttypeComponent,
+    CompanyComponent,
+    LinenotifyComponent,
     
     
   ],
