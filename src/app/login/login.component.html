@@ -1,0 +1,23 @@
+<div class="login-screen">
+    <img src="assets/images/bg.jpg" alt="golf-ball" class="login-screen__logo">
+
+    <h3 class="login-screen__username">POS SYSTEM</h3>
+    <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+        <div class="login-screen__input">
+            <div class="p-input-icon-right">
+                <i class="pi pi-arrow-circle-right"></i>
+                <input #username (keyup.enter)="handleLogin()" autofocus pInputText autocomplete="off"
+                    class="p-inputtext-sm" placeholder="Username" type="username" formControlName="username">
+            </div>
+        </div>
+    
+        <div class="login-screen__input">
+            <div class="p-input-icon-right">
+                <i class="pi pi-arrow-circle-right"></i>
+                <input #password (keyup.enter)="handleLogin()" autofocus pInputText autocomplete="off"
+                    class="p-inputtext-sm" placeholder="Password" type="password" formControlName="password">
+            </div>
+        </div>
+        <p-button #submitLogin (keyup.enter)="handleLogin()" label="Submit" type="submit"></p-button>
+    </form>
+</div>
