@@ -9,6 +9,8 @@ export class LinenotifyComponent implements OnInit {
 
   constructor() { }
 
+  token: string;
+
   ngOnInit(): void {
   }
 
