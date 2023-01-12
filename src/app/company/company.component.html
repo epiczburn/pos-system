@@ -1,7 +1,7 @@
 <p>company works!</p>
 <div class="grid">
     <div class="col-offset-1 col-10">
-        <p-table #dt [value]="producttypes" [(selection)]="selectedProducttypes" dataKey="id" styleClass="p-datatable-customers"
+        <p-table #dt [value]="companys" [(selection)]="selectedCompanys" dataKey="id" styleClass="p-datatable-customers"
             [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
             [loading]="loading" [paginator]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
