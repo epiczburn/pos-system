@@ -29,9 +29,6 @@ export class StoreComponent implements OnInit {
 
     producttype: Producttype[];
 
-
-
-
     loading: boolean = true;
 
     @ViewChild('dt') table: Table;
