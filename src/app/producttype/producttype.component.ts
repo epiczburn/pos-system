@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Producttype } from '../store/services/producttype';
+import { Producttype } from './services/producttype';
 import { ApiService } from "../api.service";
 
 @Component({
@@ -11,37 +11,24 @@ export class ProducttypeComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  products1: any[];
+  producttypes: Producttype[];
 
-  products2: any['asd'];
+  selectedProducttypes: Producttype[];
 
-  producttype: Producttype[];
+  producttype: Producttype;
 
-  Producttype: Producttype; 
-
-  selectedproducttype: any[];
-
-  loading: any;
-
-  itemtype: any[];
+  loading: boolean;
 
   productDialog: boolean;
 
   submitted: boolean;
 
   ngOnInit(): void {
-
     this.apiService.productType().subscribe((res: any)=>{
       if(res.success) {
-          this.producttype = res.data 
-          var itemtypeInner = []
-          this.producttype.forEach((type => {
-              // console.log(type.id)
-              // console.log(type.name)
-              itemtypeInner.push({name: type.name, code: type.id})
-          }));
-          this.itemtype = itemtypeInner
+          this.producttypes = res.data
           this.loading = false
+          
       } else  {
           alert(res.data)
       }
@@ -50,10 +37,10 @@ export class ProducttypeComponent implements OnInit {
 
   openNew(){}
 
-  editProduct(itemtype: Producttype) {
-    this.itemtype = { ...this.producttype };
+  editProduct(producttype: Producttype) {
+    this.producttype = { ...this.producttype };
     this.productDialog = true;
-    console.log(itemtype)
+    console.log(producttype)
   }
   hideDialog() {
     this.productDialog = false;

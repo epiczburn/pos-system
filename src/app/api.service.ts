@@ -48,6 +48,13 @@ export class ApiService {
       this.httpOptions
     )
   }
+
+  public Companys() {
+    return this.http.get(
+      `/api/v1/companys`,
+      this.httpOptions
+    )
+  }
   
 
 }
