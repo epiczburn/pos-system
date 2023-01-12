@@ -55,6 +55,13 @@ export class ApiService {
       this.httpOptions
     )
   }
+
+  public Users() {
+    return this.http.get(
+      `/api/v1/users`,
+      this.httpOptions
+    )
+  }
   
 
 }
