@@ -9,30 +9,31 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { ProductService } from './store/services/productservice';
 import { StoreComponent } from './store/store.component';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {DataViewModule} from 'primeng/dataview';
-import {ButtonModule} from 'primeng/button';
-import {PanelModule} from 'primeng/panel';
-import {DropdownModule} from 'primeng/dropdown';
-import {DialogModule} from 'primeng/dialog';
-import {RatingModule} from 'primeng/rating';
-import {RippleModule} from 'primeng/ripple';
-import {TableModule} from 'primeng/table';
-import {ProgressBarModule} from 'primeng/progressbar';
+import { DataViewModule } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { CustomerService } from './customerservice';
-import {CalendarModule} from 'primeng/calendar';
-import {SliderModule} from 'primeng/slider';
-import {MultiSelectModule} from 'primeng/multiselect';
-import {ContextMenuModule} from 'primeng/contextmenu';
-import {ToastModule} from 'primeng/toast';
-import {ChartModule} from 'primeng/chart';
+import { CalendarModule } from 'primeng/calendar';
+import { SliderModule } from 'primeng/slider';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { ToastModule } from 'primeng/toast';
+import { ChartModule } from 'primeng/chart';
 import { AppConfigService } from './dashboard/services/appConfigService';
 import { ButtonComponent } from './button/button.component';
 import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
-import {InputNumberModule} from 'primeng/inputnumber';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import {CardModule} from 'primeng/card';
+import { CardModule } from 'primeng/card';
+import { StroreExampleComponent } from './strore-example/strore-example.component';
 
 
 
@@ -45,8 +46,9 @@ import {CardModule} from 'primeng/card';
     LoginComponent,
     DashboardComponent,
     ButtonComponent,
-    
-    
+    StroreExampleComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -68,20 +70,20 @@ import {CardModule} from 'primeng/card';
     BrowserAnimationsModule,
     TableModule,
     CalendarModule,
-		SliderModule,
-		DialogModule,
-		MultiSelectModule,
-		ContextMenuModule,
-		DropdownModule,
-		ButtonModule,
+    SliderModule,
+    DialogModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    DropdownModule,
+    ButtonModule,
     ChartModule,
     ReactiveFormsModule,
     InputNumberModule,
     BarcodeScannerLivestreamModule,
     ZXingScannerModule,
-    CardModule
+    CardModule,
   ],
-  providers: [CustomerService,AppConfigService],
+  providers: [CustomerService, AppConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
