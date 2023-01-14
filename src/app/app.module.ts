@@ -36,6 +36,12 @@ import { CardModule } from 'primeng/card';
 import { StroreExampleComponent } from './strore-example/strore-example.component';
 
 
+import { UsersComponent } from './users/users.component';
+import { ProducttypeComponent } from './producttype/producttype.component';
+import { CompanyComponent } from './company/company.component';
+import { LinenotifyComponent } from './linenotify/linenotify.component';
+import {ImageModule} from 'primeng/image';
+
 
 
 @NgModule({
@@ -47,8 +53,12 @@ import { StroreExampleComponent } from './strore-example/strore-example.componen
     DashboardComponent,
     ButtonComponent,
     StroreExampleComponent,
-
-
+    UsersComponent,
+    ProducttypeComponent,
+    CompanyComponent,
+    LinenotifyComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -82,6 +92,7 @@ import { StroreExampleComponent } from './strore-example/strore-example.componen
     BarcodeScannerLivestreamModule,
     ZXingScannerModule,
     CardModule,
+    ImageModule
   ],
   providers: [CustomerService, AppConfigService],
   bootstrap: [AppComponent]

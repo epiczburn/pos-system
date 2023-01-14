@@ -1,0 +1,79 @@
+ <p>users works!</p>
+<div class="grid">
+    <div class="col-offset-1 col-10">
+        <p-table #dt [value]="users" [(selection)]="selectedUsers" dataKey="id" styleClass="p-datatable-customers"
+            [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+            [loading]="loading" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
+
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" placeholder="Search..." />     
+                    </span>
+                    <span>
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="openNew()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name"> รายชื่อร้านค้า </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-company>
+                <tr class="p-selectable-row">  
+                    
+                    <td>
+                        <span class="p-column-title">ประเภทสินค้า</span>
+                        {{company.name}}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                            (click)="editProduct(company)"></button>
+                    </td>
+
+                   
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
+            styleClass="p-fluid">
+            <ng-template pTemplate="content">
+                
+                <div class="field">
+                    <label for="barcode">แก้ไขชื่อพนักงาน</label>
+                    <input type="text" pInputText id="producttype" [(ngModel)]="user.name" required autofocus />
+                    <small class="p-error" *ngIf="submitted && !user.name"> เปลี่ยนชื่อ </small>
+                </div>
+                
+                
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
+                    (click)="hideDialog()"></button>
+                <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
+                    (click)="saveProduct()"></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>
+<div id="footer">
+    <app-button></app-button>
+  </div>

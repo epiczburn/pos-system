@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { PrimeNGConfig } from 'primeng/api';
-import { Customer, Representative } from '../customer';
-import { CustomerService } from '../customerservice';
 import { ApiService } from "../api.service";
 import { Product } from './services/product';
 import { Producttype } from './services/producttype';
@@ -30,9 +28,6 @@ export class StoreComponent implements OnInit {
     itemtype: any[];
 
     producttype: Producttype[];
-
-
-
 
     loading: boolean = true;
 

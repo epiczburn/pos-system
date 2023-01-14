@@ -61,4 +61,27 @@ export class ApiService {
     )
   }
 
+  public Companys() {
+    return this.http.get(
+      `/api/v1/companys`,
+      this.httpOptions
+    )
+  }
+
+  public Users() {
+    return this.http.get(
+      `/api/v1/users`,
+      this.httpOptions
+    )
+  }
+
+  public addlinetoken(data){
+    return this.http.post(
+      `/api/v1/line/add-api`,
+      data,
+      this.httpOptions
+    )
+  }
+  
+
 }
