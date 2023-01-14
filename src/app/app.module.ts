@@ -34,13 +34,12 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { CardModule } from 'primeng/card';
 import { StroreExampleComponent } from './strore-example/strore-example.component';
-
-
 import { UsersComponent } from './users/users.component';
 import { ProducttypeComponent } from './producttype/producttype.component';
 import { CompanyComponent } from './company/company.component';
 import { LinenotifyComponent } from './linenotify/linenotify.component';
 import {ImageModule} from 'primeng/image';
+import { LogoutComponent } from './logout/logout.component';
 
 
 
@@ -57,6 +56,7 @@ import {ImageModule} from 'primeng/image';
     ProducttypeComponent,
     CompanyComponent,
     LinenotifyComponent,
+    LogoutComponent,
     
     
   ],
