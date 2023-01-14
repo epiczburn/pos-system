@@ -37,7 +37,7 @@ import { UsersComponent } from './users/users.component';
 import { ProducttypeComponent } from './producttype/producttype.component';
 import { CompanyComponent } from './company/company.component';
 import { LinenotifyComponent } from './linenotify/linenotify.component';
-
+import {ImageModule} from 'primeng/image';
 
 
 
@@ -87,7 +87,8 @@ import { LinenotifyComponent } from './linenotify/linenotify.component';
     InputNumberModule,
     BarcodeScannerLivestreamModule,
     ZXingScannerModule,
-    CardModule
+    CardModule,
+    ImageModule
   ],
   providers: [CustomerService,AppConfigService],
   bootstrap: [AppComponent]

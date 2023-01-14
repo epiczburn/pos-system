@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
+import {ImageModule} from 'primeng/image';
 
 @Component({
   selector: 'app-linenotify',
