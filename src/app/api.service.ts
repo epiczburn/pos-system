@@ -62,6 +62,14 @@ export class ApiService {
       this.httpOptions
     )
   }
+
+  public addlinetoken(data){
+    return this.http.post(
+      `/api/v1/line/add-api`,
+      data,
+      this.httpOptions
+    )
+  }
   
 
 }

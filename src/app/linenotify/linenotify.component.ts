@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from "../api.service";
 
 @Component({
   selector: 'app-linenotify',
@@ -7,11 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LinenotifyComponent implements OnInit {
 
-  constructor() { }
+  Addtoken: string;
 
-  token: string;
+  token: string = "";
+
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    
   }
+  addtoken(){
+    console.log(this.token)
+    
+    const linetoken = {
+      "lineToken": this.token
+    }
+      this.apiService.addlinetoken(linetoken).subscribe((res: any) =>{
+       
+        if(res.success){
+          console.log(res)
+        } else {
+          alert("login failed")
+        }
+      })
 
-}
+    }
+    }
