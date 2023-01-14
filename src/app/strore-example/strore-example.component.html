@@ -1,7 +1,6 @@
 <div class="grid">
   <div class="col-offset-1 col-10">
-    <p-table
-      #dt
+    <p-table #dt
       [value]="items"
       dataKey="id"
       styleClass="p-datatable-customers"
@@ -36,9 +35,9 @@
 
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="img">
+          <!-- <th pSortableColumn="img">
             รูปภาพ <p-sortIcon field="img"></p-sortIcon>
-          </th>
+          </th> -->
           <th pSortableColumn="name">
             ชื่อสินค้า <p-sortIcon field="name"></p-sortIcon>
           </th>
@@ -56,9 +55,9 @@
       </ng-template>
       <ng-template pTemplate="body" let-product>
         <tr class="p-selectable-row">
-          <td>
+          <!-- <td>
             <img [src]="product.img" width="100px" height="100px" />
-          </td>
+          </td> -->
           <td>
             <span class="p-column-title">ชื่อสินค้า</span>
             <span class="image-text">{{ product.name }}</span>
@@ -108,7 +107,9 @@
     >
       <ng-template pTemplate="content">
         <form *ngIf="itemForms" [formGroup]="itemForms">
-          <!-- <img [src]="product.img" [alt]="product.img" class="product-image" *ngIf="product.img"> -->
+          <!-- <div>
+            <img [src]="product.img" [alt]="product.img" class="product-image" *ngIf="product.img">
+          </div> -->
           <div class="field">
             <label for="barcode">รหัสบาร์โค้ดสินค้า</label>
             <input

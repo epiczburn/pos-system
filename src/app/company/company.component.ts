@@ -18,13 +18,19 @@ export class CompanyComponent implements OnInit {
 
   loading: boolean = true;
 
-  productDialog: boolean;
+  companyDialog: boolean;
 
   submitted: boolean;
+
+  isNew: boolean = false
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.getItem()
+  }
+
+  getItem() {
     this.apiService.Companys().subscribe((res: any)=>{
       if(res.success) {
           this.companys = res.data
@@ -35,16 +41,45 @@ export class CompanyComponent implements OnInit {
       }
   })
   }
-  openNew(){}
-  editProduct(company: Company) {
+
+  openNew(){
+    this.company = {}
+    this.isNew = true
+    this.companyDialog = true
+    this.submitted = true
+  }
+  edit(company: Company) {
     this.company = { ...company };
-    this.productDialog = true;
-    console.log(company)
-}
-  
-  saveProduct(){}
+    this.companyDialog = true;
+  }
   hideDialog() {
-    this.productDialog = false;
+    this.isNew = false
+    this.companyDialog = false;
     this.submitted = false;
+  }
+
+  save() {
+    if (this.isNew === true) {
+      this.apiService.insertCompany(this.company).subscribe((res: any) => {
+        if (res.success) {
+          console.log(res.data)
+          this.getItem()
+          this.hideDialog()
+        } else {
+          alert(res.data)
+        }
+      })
+    } else {
+      this.apiService.updateCompany(this.company).subscribe((res: any) => {
+        if (res.success) {
+          console.log(res.data)
+          this.getItem()
+          this.hideDialog()
+        } else {
+          alert(res.data)
+        }
+      })
+    }
+
   }
 }

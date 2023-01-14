@@ -37,7 +37,7 @@
                     <td></td>
                     <td>
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                            (click)="editProduct(company)"></button>
+                            (click)="edit(company)"></button>
                     </td>
 
                    
@@ -51,7 +51,7 @@
                 </tr>
             </ng-template>
         </p-table>
-        <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
+        <p-dialog [(visible)]="companyDialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
             styleClass="p-fluid">
             <ng-template pTemplate="content">
                 
@@ -68,7 +68,7 @@
                 <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
                     (click)="hideDialog()"></button>
                 <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
-                    (click)="saveProduct()"></button>
+                    (click)="save()"></button>
             </ng-template>
         </p-dialog>
     </div>

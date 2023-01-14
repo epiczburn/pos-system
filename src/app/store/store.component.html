@@ -1,8 +1,10 @@
+<br><br>
 <div class="grid">
     <div class="col-offset-1 col-10">
-
-
-
+        <div id="header">
+            <app-logout></app-logout>
+        </div>
+        <br>
         <p-table #dt [value]="products" [(selection)]="selectedProducts" dataKey="id" styleClass="p-datatable-customers"
             [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
             [loading]="loading" [paginator]="true"
@@ -16,8 +18,8 @@
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
                         <input pInputText type="text" placeholder="Search..." />
-                        <p-dropdown [options]="itemtype" [(ngModel)]="selectedproducttype" placeholder="ประเภทสินค้า"
-                            optionLabel="name" [showClear]="true"></p-dropdown>
+                        <!-- <p-dropdown [options]="itemtype" [(ngModel)]="selectedproducttype" placeholder="ประเภทสินค้า"
+                            optionLabel="name" [showClear]="true"></p-dropdown> -->
                     </span>
 
 
@@ -26,7 +28,7 @@
                         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
                             (click)="openNew()"></button>
                     </span>
-
+                    
                 </div>
 
             </ng-template>
@@ -170,3 +172,4 @@
 <div id="footer">
     <app-button></app-button>
 </div>
+

@@ -4,6 +4,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { ApiService } from "../api.service";
 import { Product } from './services/product';
 import { Producttype } from './services/producttype';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-store',
@@ -14,26 +15,18 @@ export class StoreComponent implements OnInit {
 
 
     selectedProducts: Product[];
-
     products: Product[];
-
     product: Product;
-
     productDialog: boolean;
-
     submitted: boolean;
-
     selectedproducttype: any[];
-
     itemtype: any[];
-
     producttype: Producttype[];
-
     loading: boolean = true;
 
     @ViewChild('dt') table: Table;
 
-    constructor(private primengConfig: PrimeNGConfig, private apiService: ApiService) {}
+    constructor(private primengConfig: PrimeNGConfig, private apiService: ApiService, private fb: FormBuilder) {}
 
     ngOnInit() {
         

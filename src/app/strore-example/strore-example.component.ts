@@ -29,7 +29,7 @@ export class StroreExampleComponent implements OnInit {
       productTypeId: new FormControl(""),
       quantity: new FormControl(""),
       price: new FormControl(""),
-      img: new FormControl("")
+      // img: new FormControl("")
     })
   }
 
@@ -46,7 +46,7 @@ export class StroreExampleComponent implements OnInit {
       productTypeId: new FormControl(selected.productTypeId),
       quantity: new FormControl(selected.quantity),
       price: new FormControl(selected.price),
-      img: new FormControl(selected.img)
+      // img: new FormControl(selected.img)
     })
     this.handleDialog(true);
   }

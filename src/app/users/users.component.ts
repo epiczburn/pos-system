@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
-import { User } from './services/user';
+import { User, EditUser } from './services/user';
 
 @Component({
   selector: 'app-users',
@@ -17,13 +17,19 @@ export class UsersComponent implements OnInit {
 
   loading: boolean = true;
 
-  productDialog: boolean;
+  userDialog: boolean;
 
   submitted: boolean;
+
+  isNew: boolean = false
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.getItem()
+  }
+
+  getItem() {
     this.apiService.Users().subscribe((res: any)=>{
       if(res.success) {
           this.users = res.data
@@ -34,16 +40,53 @@ export class UsersComponent implements OnInit {
       }
   })
   }
-  openNew(){}
-  editProduct(user: User) {
-    this.user = { ...user };
-    this.productDialog = true;
-    console.log(user)
-}
+
+
+  openNew() {
+    this.user = {}
+    this.isNew = true
+    this.userDialog = true
+    this.submitted = true
+  }
   
-  saveProduct(){}
+  edit(user: User) {
+    this.user = { ...user };
+    this.userDialog = true;
+  }
+
+
+  
   hideDialog() {
-    this.productDialog = false;
+    this.isNew = false
+    this.userDialog = false;
     this.submitted = false;
   }
+
+  save() {
+    if (this.isNew === true) {
+      this.apiService.insertUser(this.user).subscribe((res: any) => {
+        if (res.success) {
+          console.log(res.data)
+          this.getItem()
+          this.hideDialog()
+        } else {
+          alert(res.data)
+        }
+      })
+    } else {
+
+      let editUser: EditUser = this.user
+      this.apiService.updateUser(editUser).subscribe((res: any) => {
+        if (res.success) {
+          console.log(res.data)
+          this.getItem()
+          this.hideDialog()
+        } else {
+          alert(res.data)
+        }
+      })
+    }
+
+  }
+
 }

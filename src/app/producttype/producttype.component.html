@@ -1,5 +1,10 @@
+<br><br>
 <div class="grid">
     <div class="col-offset-1 col-10">
+        <div id="header">
+            <app-logout></app-logout>
+        </div>
+        <br>
         <p-table #dt [value]="producttypes" [(selection)]="selectedProducttypes" dataKey="id" styleClass="p-datatable-customers"
             [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
             [loading]="loading" [paginator]="true"
@@ -37,7 +42,7 @@
                     <td></td>
                     <td>
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                            (click)="editProduct(producttype)"></button>
+                            (click)="edit(producttype)"></button>
                     </td>
 
                 </tr>
@@ -53,9 +58,8 @@
             <ng-template pTemplate="content">
                 
                 <div class="field">
-                    <label for="barcode">แก้ไขประเภทสินค้า</label>
+                    <label for="barcode">รายละเอียดประเภทสินค้า</label>
                     <input type="text" pInputText id="producttype" [(ngModel)]="producttype.name" required autofocus />
-                    <small class="p-error" *ngIf="submitted && !producttype.name"> เปลี่ยนชื่อ </small>
                 </div>
                 
                 
@@ -65,7 +69,7 @@
                 <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
                     (click)="hideDialog()"></button>
                 <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
-                    (click)="saveProduct()"></button>
+                    (click)="save()"></button>
             </ng-template>
         </p-dialog>
     </div>

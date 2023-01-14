@@ -38,7 +38,7 @@
                     <td></td>
                     <td>
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                            (click)="editProduct(company)"></button>
+                            (click)="edit(company)"></button>
                     </td>
 
                    
@@ -52,14 +52,18 @@
                 </tr>
             </ng-template>
         </p-table>
-        <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
+        <p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
             styleClass="p-fluid">
             <ng-template pTemplate="content">
                 
                 <div class="field">
                     <label for="barcode">แก้ไขชื่อพนักงาน</label>
-                    <input type="text" pInputText id="producttype" [(ngModel)]="user.name" required autofocus />
-                    <small class="p-error" *ngIf="submitted && !user.name"> เปลี่ยนชื่อ </small>
+                    <input type="text" pInputText id="user" [(ngModel)]="user.name" required autofocus />
+                </div>
+                <div class="field">
+                    <label for="barcode">รหัสผ่าน</label>
+                    <input type="text" pInputText id="user" [(ngModel)]="user.password" required autofocus />
+                    
                 </div>
                 
                 
@@ -69,7 +73,7 @@
                 <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
                     (click)="hideDialog()"></button>
                 <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
-                    (click)="saveProduct()"></button>
+                    (click)="save()"></button>
             </ng-template>
         </p-dialog>
     </div>

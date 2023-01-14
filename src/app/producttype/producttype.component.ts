@@ -4,7 +4,7 @@ import { ApiService } from "../api.service";
 
 @Component({
   selector: 'app-producttype',
-  templateUrl: './producttype.component.html', 
+  templateUrl: './producttype.component.html',
   styleUrls: ['./producttype.component.css']
 })
 export class ProducttypeComponent implements OnInit {
@@ -23,30 +23,64 @@ export class ProducttypeComponent implements OnInit {
 
   submitted: boolean;
 
+  isNew: boolean = false
+
   ngOnInit(): void {
-    this.apiService.productType().subscribe((res: any)=>{
-      if(res.success) {
-          this.producttypes = res.data
-          this.loading = false
-          
-      } else  {
-          alert(res.data)
-      }
-  })
+    this.getItem()
   }
 
-  openNew(){}
+  getItem() {
+    this.apiService.productType().subscribe((res: any) => {
+      if (res.success) {
+        console.log(res.data)
+        this.producttypes = res.data
+        this.loading = false
 
-  editProduct(producttype: Producttype) {
-    this.producttype = { ...this.producttype };
+      } else {
+        alert(res.data)
+      }
+    })
+  }
+
+  openNew() {
+    this.producttype = {}
+    this.isNew = true
+    this.productDialog = true
+    this.submitted = true
+  }
+
+  edit(producttype: Producttype) {
+    this.producttype = { ...producttype };
     this.productDialog = true;
-    console.log(producttype)
   }
   hideDialog() {
+    this.isNew = false
     this.productDialog = false;
     this.submitted = false;
-}
+  }
 
-  saveProduct(){}
+  save() {
+    if (this.isNew === true) {
+      this.apiService.insertProductType(this.producttype).subscribe((res: any) => {
+        if (res.success) {
+          console.log(res.data)
+          this.getItem()
+          this.hideDialog()
+        } else {
+          alert(res.data)
+        }
+      })
+    } else {
+      this.apiService.updateProductType(this.producttype).subscribe((res: any) => {
+        if (res.success) {
+          console.log(res.data)
+          this.getItem()
+          this.hideDialog()
+        } else {
+          alert(res.data)
+        }
+      })
+    }
 
+  }
 }

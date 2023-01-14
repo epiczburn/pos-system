@@ -54,6 +54,7 @@ scanCompleteHandler(barcode){
       // check find product not found
       if (!product) {
         alert('ไม่พบสินค้าดังกล่าว!!')
+        this.cameraReady = true
         return
       }
 
@@ -67,6 +68,33 @@ scanCompleteHandler(barcode){
 
 confirmSale(){
  console.log("confirm แล้ว")
+ let object = {
+    products:[],
+    paymentTypeId : 1
+ }
+
+ this.sales.forEach(element => {
+   const product = {
+    barcode : element.barcode,
+    quantity: element.quantity
+   }
+   object.products.push(product)
+ });
+
+ console.log(object)
+
+ this.apiService.confirmSale(object).subscribe((res: any) => {
+  console.log(res)
+  if (res.success) {
+      this.sales = []
+      this.loading = false;
+  } else {
+    console.log(res)
+    alert("error")
+  }
+})
+
+
 }
 
 cancelList(){

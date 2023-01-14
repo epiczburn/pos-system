@@ -61,9 +61,41 @@ export class ApiService {
     )
   }
 
+  public insertProductType(data){
+    return this.http.post(
+      `/api/v1/product-types`,
+      data,
+      this.httpOptions
+    )
+  }
+
+  public updateProductType(data){
+    return this.http.put(
+      `/api/v1/product-types`,
+      data,
+      this.httpOptions
+    )
+  }
+
   public Companys() {
     return this.http.get(
       `/api/v1/companys`,
+      this.httpOptions
+    )
+  }
+
+  public insertCompany(data){
+    return this.http.post(
+      `/api/v1/companys`,
+      data,
+      this.httpOptions
+    )
+  }
+
+  public updateCompany(data){
+    return this.http.put(
+      `/api/v1/companys`,
+      data,
       this.httpOptions
     )
   }
@@ -74,10 +106,32 @@ export class ApiService {
       this.httpOptions
     )
   }
+  public insertUser(data){
+    return this.http.post(
+      `/api/v1/users`,
+      data,
+      this.httpOptions
+    )
+  }
 
+  public updateUser(data){
+    return this.http.put(
+      `/api/v1/users`,
+      data,
+      this.httpOptions
+    )
+  }
   public addlinetoken(data){
     return this.http.post(
       `/api/v1/line/add-api`,
+      data,
+      this.httpOptions
+    )
+  }
+
+  public confirmSale(data){
+    return this.http.post(
+      `/api/v1/sales/confirm`,
       data,
       this.httpOptions
     )
