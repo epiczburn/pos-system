@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class StoreComponent implements OnInit {
 
 
-    public items: Array<any>
+  public items: Array<any>
   public loading: boolean
   public dialogForms: boolean
   public isNew: boolean
@@ -31,6 +31,7 @@ export class StoreComponent implements OnInit {
       productTypeId: new FormControl(""),
       quantity: new FormControl(""),
       price: new FormControl(""),
+      // cost: new FormControl(""),
       // img: new FormControl("")
     })
   }
@@ -48,7 +49,9 @@ export class StoreComponent implements OnInit {
       productTypeId: new FormControl(selected.productTypeId),
       quantity: new FormControl(selected.quantity),
       price: new FormControl(selected.price),
+      // cost: new FormControl(selected.cost),
       // img: new FormControl(selected.img)
+      
     })
     this.handleDialog(true);
   }
@@ -78,6 +81,7 @@ export class StoreComponent implements OnInit {
     this.resetForms();
     this.isNew = true;
     this.dialogForms = true;
+    console.log(this.resetForms)
   }
 
   onSubmit() {
