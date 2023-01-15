@@ -138,6 +138,7 @@ export class ApiService {
   }
 
   public Reports(data){
+    
     return this.http.post(
       `/api/v1/report/all-data`,
       data,

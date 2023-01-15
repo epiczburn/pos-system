@@ -21,29 +21,51 @@ export class DashboardComponent implements OnInit {
     companyDialog: boolean;
   
     submitted: boolean;
+
+    rangeDates: Date[];
   
   
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-      
-    this.apiService.Reports().subscribe((res: any)=>{
+      let data = {
+        startDate: "2023-01-09 00:00:00",
+        endDate: "2023-01-15 23:59:59"
+     }
+    this.apiService.Reports(data).subscribe((res: any)=>{
         if(res.success) {
-            this.reports = res.data
+            this.reports = res.data.products
+            this.loading = false
+            console.log(res.data)
         } else  {
             alert(res.data)
         }
     })
-    
-    
-    
-    
-    
-    
-    
-    
+}
+selecttable(){
+// console.log(this.rangeDates)
+let startDate = new Date(this.rangeDates[0])
+startDate.setDate(startDate.getDate()+1)
+let endDate = new Date(this.rangeDates[1])
+endDate.setDate(endDate.getDate()+1)
 
+// console.log(startDate.toISOString().toString().substring(0, 10))
+
+let data = {
+    startDate: startDate.toISOString().toString().substring(0, 10)+ " 00:00:00",
+    endDate: endDate.toISOString().toString().substring(0, 10)+ " 23:59:59"
+ }
+
+this.apiService.Reports(data).subscribe((res: any)=>{
+    if(res.success) {
+        this.reports = res.data.products
+        this.loading = false
+        // console.log(res.data)
+    } else  {
+        alert(res.data)
+    }
+})
 }
 
 }

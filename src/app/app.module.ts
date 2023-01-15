@@ -27,7 +27,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 import { ChartModule } from 'primeng/chart';
-import { AppConfigService } from './dashboard/services/appConfigService';
 import { ButtonComponent } from './button/button.component';
 import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -94,7 +93,7 @@ import { LogoutComponent } from './logout/logout.component';
     CardModule,
     ImageModule
   ],
-  providers: [CustomerService, AppConfigService],
+  providers: [CustomerService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
