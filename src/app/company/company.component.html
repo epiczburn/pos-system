@@ -29,7 +29,7 @@
                 <tr class="p-selectable-row">  
                     
                     <td>
-                        <span class="p-column-title">ประเภทสินค้า</span>
+                        <span class="p-column-title">ร้านค้า</span>
                         {{company.name}}
                     </td>
                     <td></td>
@@ -56,9 +56,9 @@
             <ng-template pTemplate="content">
                 
                 <div class="field">
-                    <label for="barcode">แก้ไขชื่อร้านค้า</label>
+                    <label for="barcode">กรุณาใส่ชื่อร้านค้า</label>
                     <input type="text" pInputText id="producttype" [(ngModel)]="company.name" required autofocus />
-                    <small class="p-error" *ngIf="submitted && !company.name"> เปลี่ยนชื่อ </small>
+                    <small class="p-error" *ngIf="submitted && !company.name"></small>
                 </div>
                 
                 

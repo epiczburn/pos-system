@@ -1,89 +1,82 @@
-<p>dashboard works!</p>
+<div class="field col-12 md:col-4">
+    <label for="range">Range</label>
+    <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
+</div>
+<div class="grid">
+    <div class="col-offset-1 col-10">
+        <p-table #dt [value]="companys" [(selection)]="selectedCompanys" dataKey="id" styleClass="p-datatable-customers"
+            [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+            [loading]="loading" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
 
-<!-- <div class="grid">
-    <div class="col-offset-1 col-4">
-        <p-chart type="pie"  [data]="data" [options]="chartOptions"  width="400" height="400"></p-chart>
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" placeholder="Search..." />     
+                    </span>
+                    <span>
+                        <button pButton pRipple label="เพิ่มร้านค้า" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="openNew()"></button>
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name"> รายชื่อร้านค้า </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-company>
+                <tr class="p-selectable-row">  
+                    
+                    <td>
+                        <span class="p-column-title">ร้านค้า</span>
+                        {{company.name}}
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                            (click)="edit(company)"></button>
+                    </td>
+
+                   
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-dialog [(visible)]="companyDialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
+            styleClass="p-fluid">
+            <ng-template pTemplate="content">
+                
+                <div class="field">
+                    <label for="barcode">กรุณาใส่ชื่อร้านค้า</label>
+                    <input type="text" pInputText id="producttype" [(ngModel)]="company.name" required autofocus />
+                    <small class="p-error" *ngIf="submitted && !company.name"></small>
+                </div>
+                
+                
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
+                    (click)="hideDialog()"></button>
+                <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
+                    (click)="save()"></button>
+            </ng-template>
+        </p-dialog>
     </div>
-</div> -->
-
-
-<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>รูป</th>
-            <th>ชื่อ</th>
-            <th>ราคา</th>
-            <th>จำนวนที่ขายได้</th>
-            <th>ต้นทุน</th>
-            <th>กำไร-ขาดทุน</th>
-        </tr>
-    </ng-template>
-
-    <ng-template pTemplate="body" let-product>
-        <tr class="p-selectable-row">
-
-            <td>
-                <img [src]="product.img" width="100px" height="100px">
-            </td>
-            <td>
-                <span class="p-column-title">ชื่อสินค้า</span>
-                <span class="image-text">{{product.name}}</span>
-            </td>
-            <td>
-                <span class="p-column-title">ราคา</span>
-                {{product.price}}
-            </td>
-            <td>
-                <span class="p-column-title">จำนวนที่ขายได้</span>
-                {{product.quantity}}
-            </td>
-            <td>
-                <span class="p-column-title">ต้นทุน</span>
-                <p>1 บาท</p>
-            </td>
-            <td>
-                <span class="p-column-title">กำไร-ขาดทุน</span>
-                <p>กำไร</p>
-            </td>
-        </tr>
-    </ng-template>
-
-    <!-- <ng-template pTemplate="body" let-product>
-        <tr>
-            <td>{{product.name}}</td>
-            <td><img [src]="'assets/showcase/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-            <td>{{product.price | currency:'USD'}}</td>
-            <td>{{product.category}}</td>
-            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-            <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
-        </tr>
-    </ng-template> -->
-
-    <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">
-            รายการทั้งหมดในร้านมี {{products ? products.length : 0 }} รายการ.
-        </div>
-    </ng-template>
-</p-table>
-
-<!-- <p-table>
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th>กำไร-ขาดทุน</th>
-        </tr>
-    </ng-template>
-
-</p-table> -->
-
-
-
-
-
+</div>
 <div id="footer">
     <app-button></app-button>
-</div>
+  </div>

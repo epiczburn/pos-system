@@ -1,9 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Table } from 'primeng/table';
-import { PrimeNGConfig } from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
-import { Product } from './services/product';
-import { Producttype } from './services/producttype';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -14,86 +10,97 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class StoreComponent implements OnInit {
 
 
-    selectedProducts: Product[];
-    products: Product[];
-    product: Product;
-    productDialog: boolean;
-    submitted: boolean;
-    selectedproducttype: any[];
-    itemtype: any[];
-    producttype: Producttype[];
-    loading: boolean = true;
+    public items: Array<any>
+  public loading: boolean
+  public dialogForms: boolean
+  public isNew: boolean
+  public itemForms: FormGroup;
+  constructor(private apiService: ApiService, private fb: FormBuilder) { }
 
-    @ViewChild('dt') table: Table;
+  ngOnInit(): void {
+    this.itemForms = this.fb.group({});
+    this.loading = true;
+    this.buildForms();
+    this.getItems();
+  }
 
-    constructor(private primengConfig: PrimeNGConfig, private apiService: ApiService, private fb: FormBuilder) {}
+  buildForms() {
+    this.itemForms = this.fb.group({
+      barcode: new FormControl(""),
+      name: new FormControl(""),
+      productTypeId: new FormControl(""),
+      quantity: new FormControl(""),
+      price: new FormControl(""),
+      // img: new FormControl("")
+    })
+  }
 
-    ngOnInit() {
-        
-        this.apiService.productList().subscribe((res: any)=>{
-            if(res.success) {
-                this.products = res.data
-                this.loading = false
-            } else  {
-                alert(res.data)
-            }
-        })
+  resetForms() {
+    this.itemForms.reset();
+  }
 
-        this.apiService.productType().subscribe((res: any)=>{
-            if(res.success) {
-                this.producttype = res.data 
-                var itemtypeInner = []
-                this.producttype.forEach((type => {
-                    // console.log(type.id)
-                    // console.log(type.name)
-                    itemtypeInner.push({name: type.name, code: type.id})
-                }));
-                this.itemtype = itemtypeInner
-                this.loading = false
-            } else  {
-                alert(res.data)
-            }
-        })
-        
-        
-        
+  editItem(selected: any) {
+    this.isNew = false;
+    this.itemForms = this.fb.group({
+      id: new FormControl(selected.id),
+      barcode: new FormControl(selected.barcode),
+      name: new FormControl(selected.name),
+      productTypeId: new FormControl(selected.productTypeId),
+      quantity: new FormControl(selected.quantity),
+      price: new FormControl(selected.price),
+      // img: new FormControl(selected.img)
+    })
+    this.handleDialog(true);
+  }
+
+  async deleteItem(selected: any) {
+    const { id } = selected;
+    this.apiService.deleteProduct(id).subscribe((res: any) => {
+      if (res) {
+        this.getItems({ refresh: true })
+      }
+    });
+  }
+
+  getItems({ refresh = false } = {}) {
+    if (refresh) {
+      this.loading = true;
     }
+    this.apiService.productList().subscribe((res: any) => {
+      if (res.success) {
+        this.items = res.data;
+      }
+      this.loading = false;
+    })
+  }
 
-    deleteProduct(product) { }
-    editProduct(product: Product) {
-        this.product = { ...product };
-        this.productDialog = true;
+  insertNewProduct() {
+    this.resetForms();
+    this.isNew = true;
+    this.dialogForms = true;
+  }
+
+  onSubmit() {
+    this.handleDialog(false);
+    const value = { ...this.itemForms.value, cost: 0, productTypeId: 1, img: null };
+    if (this.isNew) {
+      this.apiService.insertNewProduct(value).subscribe((res: any) => {
+        if (res) {
+          this.getItems({ refresh: true })
+        }
+      });
+    } else {
+      this.apiService.productUpdate(value).subscribe((res: any) => {
+        if (res) {
+          this.getItems({ refresh: true })
+        }
+      });
     }
+    this.resetForms();
+  }
 
-    hideDialog() {
-        this.productDialog = false;
-        this.submitted = false;
-    }
-    openNew(){}
+  handleDialog(isOpen: boolean) {
+    this.dialogForms = isOpen;
+  }
 
-
-    saveProduct(product) {
-        this.producttype.forEach((type => {
-            if (type.name == product.productType.name){
-                console.log(type.id)
-                product.productTypeId = type.id
-                
-            }
-            
-        }));
-        delete product["productType"]
-        delete product["company"]
-        delete product["img"]
-        
-        console.log(product)
-        this.apiService.productUpdate(product).subscribe((res: any)=>{
-            console.log(res)
-        })
-        if (confirm("แก้ไขรายการเสร็จสิ้น")) {
-            this.productDialog = false;
-          }
-    }
-
-
-    
 }
