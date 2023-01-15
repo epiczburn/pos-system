@@ -31,8 +31,11 @@
           <th pSortableColumn="quantity">
             จำนวนที่เหลือ <p-sortIcon field="quantity"></p-sortIcon>
           </th>
+          <th pSortableColumn="cost">
+            ราคาต้นทุน <p-sortIcon field="cost"></p-sortIcon>
+          </th>
           <th pSortableColumn="price">
-            ราคา <p-sortIcon field="price"></p-sortIcon>
+            ราคาขาย <p-sortIcon field="price"></p-sortIcon>
           </th>
           <th></th>
         </tr>
@@ -55,7 +58,11 @@
             {{ product.quantity }}
           </td>
           <td>
-            <span class="p-column-title">ราคา</span>
+            <span class="p-column-title">ราคาต้นทุน</span>
+            {{ product.cost }}
+          </td>
+          <td>
+            <span class="p-column-title">ราคาขาย</span>
             {{ product.price }}
           </td>
           <td>
@@ -88,6 +95,15 @@
             <label for="name">ชื่อสินค้า</label>
             <input type="text" pInputText id="name" formControlName="name" required autofocus />
             <!-- <small class="p-error" *ngIf="submitted && !product.name"> กรุณาใส่ชื่อสินค้า </small> -->
+          </div>
+          <div class="field">
+            <label for="name">ประเภทสินค้า</label>
+            <p-dropdown *ngIf="productTypes" [options]="productTypes" formControlName="productTypeId" placeholder="Select product type" optionLabel="name" [showClear]="true"></p-dropdown>
+          </div>
+          <div class="field">
+            <label for="cost">ราคาต้นทุน</label>
+            <input type="text" pInputText id="cost" formControlName="cost" required autofocus />
+            <!-- <small class="p-error" *ngIf="submitted && !product.cost"> กรุณาใส่ชื่อสินค้า </small> -->
           </div>
 
           

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup,FormArray } from '@angular/forms';
 
 @Component({
     selector: 'app-store',
@@ -11,6 +11,7 @@ export class StoreComponent implements OnInit {
 
 
   public items: Array<any>
+  public productTypes: Array<any>
   public loading: boolean
   public dialogForms: boolean
   public isNew: boolean
@@ -20,8 +21,9 @@ export class StoreComponent implements OnInit {
   ngOnInit(): void {
     this.itemForms = this.fb.group({});
     this.loading = true;
-    this.buildForms();
     this.getItems();
+    this.getProductTypes();
+    this.buildForms();
   }
 
   buildForms() {
@@ -31,7 +33,7 @@ export class StoreComponent implements OnInit {
       productTypeId: new FormControl(""),
       quantity: new FormControl(""),
       price: new FormControl(""),
-      // cost: new FormControl(""),
+      cost: new FormControl(""),
       // img: new FormControl("")
     })
   }
@@ -42,15 +44,20 @@ export class StoreComponent implements OnInit {
 
   editItem(selected: any) {
     this.isNew = false;
+    const productType = this.productTypes.find(ele => {
+      return ele.name == selected.productType.name
+    })
+
     this.itemForms = this.fb.group({
       id: new FormControl(selected.id),
       barcode: new FormControl(selected.barcode),
       name: new FormControl(selected.name),
-      productTypeId: new FormControl(selected.productTypeId),
+      productTypeId: new FormControl(productType.name),
       quantity: new FormControl(selected.quantity),
       price: new FormControl(selected.price),
-      // cost: new FormControl(selected.cost),
+      cost: new FormControl(selected.cost),
       // img: new FormControl(selected.img)
+      
       
     })
     this.handleDialog(true);
@@ -77,6 +84,15 @@ export class StoreComponent implements OnInit {
     })
   }
 
+  async getProductTypes() {
+    this.apiService.productType().subscribe((res: any) => {
+      if (res.success) {
+        this.productTypes = res.data;
+      }
+      this.loading = false;
+    })
+  }
+
   insertNewProduct() {
     this.resetForms();
     this.isNew = true;
@@ -86,7 +102,8 @@ export class StoreComponent implements OnInit {
 
   onSubmit() {
     this.handleDialog(false);
-    const value = { ...this.itemForms.value, cost: 0, productTypeId: 1, img: null };
+    this.itemForms.value.productTypeId = this.itemForms.value.productTypeId.id
+    const value = { ...this.itemForms.value };
     if (this.isNew) {
       this.apiService.insertNewProduct(value).subscribe((res: any) => {
         if (res) {
