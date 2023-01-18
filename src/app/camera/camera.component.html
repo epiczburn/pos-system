@@ -10,6 +10,8 @@
           <th>ราคา</th>
           <th>จำนวนสินค้า</th>
           <th>รวม</th>
+          <th>แก้ไขสินค้า</th>
+          
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-sale>
@@ -29,17 +31,55 @@
         <td>
           {{sale.price * sale.quantity}}
         </td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+            (click)="editItem(sale)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+            (click)="deleteItem(sale)"></button>
+        </td>
+        
     </tr>
 </ng-template>
 </p-table>
-
+<br><br><br><br>
 <div class="grid text-center">
-  <div class="col-6"> <button pButton pRipple type="button" label="confirm"(click)="confirmSale()"></button> </div>
+  <div class="col-6"> <button pButton pRipple type="button" label="confirm"(click)="opendialog()"></button></div>
+  <!-- <div class="col-6"> <button pButton pRipple type="button" label="confirm"(click)="confirmSale()"></button></div> -->
   <div class="col-6"> <button pButton pRipple type="button" label="cancel" (click)="cancelList()"></button> </div>
 </div>
 
+<p-dialog [(visible)]="editdialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
+            styleClass="p-fluid">
+            <ng-template pTemplate="content">
+                
+                <div class="field">
+                    <label for="barcode">แก้ไขจำนวนสินค้า</label>
+                    <input type="number" pInputText id="producttype" [(ngModel)]="selectedProduct.quantity" required autofocus />
+                </div>
+                
+                
+            </ng-template>
 
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
+                    (click)="hideEditDialog()"></button>
+                <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
+                    (click)="saveEditDialog()"></button>
+            </ng-template>
+        </p-dialog>
 
+<p-dialog [(visible)]="cameradialog" [style]="{width: '350px'}" header="ยืนยันการทำรายการ" [modal]="true"
+            styleClass="p-fluid">
+            
+
+            <ng-template pTemplate="footer">
+                <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
+                    (click)="hideDialog()"></button>
+                <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
+                    (click)="confirmSale()"></button>
+            </ng-template>
+        </p-dialog>
+        <br><br>
 <div id="footer">
   <app-button></app-button>
 </div>

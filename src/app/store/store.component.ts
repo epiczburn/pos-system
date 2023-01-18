@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
 import { FormBuilder, FormControl, FormGroup,FormArray } from '@angular/forms';
-
 @Component({
     selector: 'app-store',
     templateUrl: './store.component.html',
     styleUrls: ['./store.component.css']
 })
 export class StoreComponent implements OnInit {
-
 
   public items: Array<any>
   public productTypes: Array<any>

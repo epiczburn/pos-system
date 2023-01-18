@@ -21,11 +21,17 @@ export class CameraComponent implements OnInit {
 
   products: Product[];
 
+  selectedProduct: any;
+
   sales: any[] = []
 
   loading: boolean = true;
 
   cameraReady: boolean = true;
+
+  cameradialog: boolean;
+  
+  editdialog: boolean;
 
 
  constructor( private apiService: ApiService) { }
@@ -36,9 +42,11 @@ export class CameraComponent implements OnInit {
       if (res.success) {
           this.products = res.data;
           this.loading = false;
-      } else {
-
       }
+  }, (err: any) => {
+    alert('ไม่สามารถดึงข้อมูลสินค้าได้!! ')
+    console.log(err);
+    return
   })
 
 
@@ -66,6 +74,38 @@ scanCompleteHandler(barcode){
       }, 1000);
 }
 
+opendialog(){
+  this.cameradialog = true
+}
+
+hideDialog() {
+  this.cameradialog = false
+
+}
+
+saveEditDialog(){
+  console.log('*** edit ***')
+  console.log(JSON.stringify(this.sales))
+  this.editdialog= false
+}
+
+hideEditDialog(){
+  this.editdialog= false
+}
+
+editItem(seletedProduct){
+  this.selectedProduct =  seletedProduct
+  this.editdialog= true
+}
+
+deleteItem(seletedProduct){
+  if(confirm("ยืนยันการลบสินค้า?") == true) {
+    this.sales = this.sales.filter(item => item !== seletedProduct);
+    console.log('*** delete ***')
+    console.log(JSON.stringify(this.sales))
+  }
+}
+
 confirmSale(){
  console.log("confirm แล้ว")
  let object = {
@@ -88,12 +128,13 @@ confirmSale(){
   if (res.success) {
       this.sales = []
       this.loading = false;
+      this.hideDialog()
+      alert("เซฟสินค้าสำเร็จ")
   } else {
     console.log(res)
     alert("error")
   }
 })
-
 
 }
 
