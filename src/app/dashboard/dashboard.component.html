@@ -9,7 +9,7 @@
 <div class="grid">
     <div class="col-offset-1 col-10">
       <p-table #dt
-        [value]="reports"
+        [value]="reportsForSearch"
         dataKey="id"
         styleClass="p-datatable-customers"
         [rowHover]="true"
@@ -25,7 +25,7 @@
           <div class="flex align-items-center justify-content-between">
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
-              <input pInputText type="text" placeholder="Search..." />
+              <input pInputText type="text" placeholder="Search..."(input)="onSearchProduct($event)" />
             </span>
   
             

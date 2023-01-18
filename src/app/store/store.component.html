@@ -1,13 +1,13 @@
 <div class="grid">
   <div class="col-offset-1 col-10">
-    <p-table #dt [value]="items" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
+    <p-table #dt [value]="itemsForSearch" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
       [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
       <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input pInputText type="text" placeholder="Search..." />
+            <input pInputText type="search" placeholder="Search..." (input)="onSearchProduct($event)" />
           </span>
 
           <span>
@@ -96,10 +96,10 @@
             <input type="text" pInputText id="name" formControlName="name" required autofocus />
             <!-- <small class="p-error" *ngIf="submitted && !product.name"> กรุณาใส่ชื่อสินค้า </small> -->
           </div>
-          <div class="field">
+          <!-- <div class="field">
             <label for="name">ประเภทสินค้า</label>
             <p-dropdown *ngIf="productTypes" [options]="productTypes" formControlName="productTypeId" placeholder="Select product type" optionLabel="name" [showClear]="true"></p-dropdown>
-          </div>
+          </div> -->
           <div class="field">
             <label for="cost">ราคาต้นทุน</label>
             <input type="text" pInputText id="cost" formControlName="cost" required autofocus />

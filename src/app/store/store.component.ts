@@ -14,6 +14,7 @@ export class StoreComponent implements OnInit {
   public dialogForms: boolean
   public isNew: boolean
   public itemForms: FormGroup;
+  public itemsForSearch: Array<any>
   constructor(private apiService: ApiService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class StoreComponent implements OnInit {
     this.itemForms = this.fb.group({
       barcode: new FormControl(""),
       name: new FormControl(""),
-      productTypeId: new FormControl(""),
+      productTypeId: new FormControl(1),
       quantity: new FormControl(""),
       price: new FormControl(""),
       cost: new FormControl(""),
@@ -36,21 +37,22 @@ export class StoreComponent implements OnInit {
     })
   }
 
-  resetForms() {
-    this.itemForms.reset();
-  }
+  // resetForms() {
+  //   this.itemForms.reset();
+  // }
 
   editItem(selected: any) {
     this.isNew = false;
-    const productType = this.productTypes.find(ele => {
-      return ele.name == selected.productType.name
-    })
+    // const productType = this.productTypes.find(ele => {
+    //   return ele.name == selected.productType.name
+    // })
 
     this.itemForms = this.fb.group({
       id: new FormControl(selected.id),
       barcode: new FormControl(selected.barcode),
       name: new FormControl(selected.name),
-      productTypeId: new FormControl(productType.name),
+      // productTypeId: new FormControl(productType.name),
+      productTypeId: new FormControl(1),
       quantity: new FormControl(selected.quantity),
       price: new FormControl(selected.price),
       cost: new FormControl(selected.cost),
@@ -77,6 +79,7 @@ export class StoreComponent implements OnInit {
     this.apiService.productList().subscribe((res: any) => {
       if (res.success) {
         this.items = res.data;
+        this.itemsForSearch = res.data;
       }
       this.loading = false;
     })
@@ -92,16 +95,17 @@ export class StoreComponent implements OnInit {
   }
 
   insertNewProduct() {
-    this.resetForms();
+    // this.resetForms()
+    this.buildForms();
     this.isNew = true;
     this.dialogForms = true;
-    console.log(this.resetForms)
   }
 
   onSubmit() {
     this.handleDialog(false);
-    this.itemForms.value.productTypeId = this.itemForms.value.productTypeId.id
+    // this.itemForms.value.productTypeId = this.itemForms.value.productTypeId.id
     const value = { ...this.itemForms.value };
+    console.log(value)
     if (this.isNew) {
       this.apiService.insertNewProduct(value).subscribe((res: any) => {
         if (res) {
@@ -115,11 +119,20 @@ export class StoreComponent implements OnInit {
         }
       });
     }
-    this.resetForms();
+    // this.resetForms()
+    this.buildForms();
   }
 
   handleDialog(isOpen: boolean) {
     this.dialogForms = isOpen;
+  }
+
+  onSearchProduct(event: any){
+    this.itemsForSearch = this.items
+    var searchProductNameOrBarcode = event.target.value
+    if(searchProductNameOrBarcode){
+      this.itemsForSearch = this.itemsForSearch.filter(item => (item.name.includes(searchProductNameOrBarcode)) || (item.barcode.includes(searchProductNameOrBarcode)));
+    }
   }
 
 }

@@ -2,7 +2,7 @@
   <zxing-scanner *ngIf="cameraReady" [formats]="allowedFormats" (scanSuccess)="scanCompleteHandler($event)"></zxing-scanner>
 </div>
 
-<p-table [value]="sales" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="sales" dataKey="id" [loading]="loading" [tableStyle]="{'min-width': '50rem'}">
   <ng-template pTemplate="header">
       <tr>
           <th>รหัสบาร์โค้ด</th>

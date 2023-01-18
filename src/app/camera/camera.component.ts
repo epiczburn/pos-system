@@ -37,11 +37,11 @@ export class CameraComponent implements OnInit {
  constructor( private apiService: ApiService) { }
 
  ngOnInit() {
+  this.loading = true
   this.apiService.productList().subscribe((res: any) => {
       console.log(res)
       if (res.success) {
           this.products = res.data;
-          this.loading = false;
       }
   }, (err: any) => {
     alert('ไม่สามารถดึงข้อมูลสินค้าได้!! ')
@@ -52,6 +52,7 @@ export class CameraComponent implements OnInit {
 
 }
 scanCompleteHandler(barcode){
+  
   this.cameraReady = false
   console.log(barcode)
   console.log('prod list: ',this.products)
@@ -69,6 +70,7 @@ scanCompleteHandler(barcode){
       product.quantity = 1
       this.sales.push(product)
 
+      this.loading = false
       this.cameraReady = true
         console.log("camera ready")
       }, 1000);
