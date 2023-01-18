@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
 import { Company } from './services/company';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company',
@@ -16,6 +16,8 @@ export class CompanyComponent implements OnInit {
 
   company: Company;
 
+  companysForSearch: Company[]
+
   loading: boolean = true;
 
   companyDialog: boolean;
@@ -24,7 +26,12 @@ export class CompanyComponent implements OnInit {
 
   isNew: boolean = false
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router){
+    var userRole = localStorage.getItem('user-role') ? localStorage.getItem('user-role') : null
+    if(!userRole || userRole == 'user' || userRole == 'manager'){
+      this.router.navigate([''])
+    }
+  }
 
   ngOnInit(): void {
     this.getItem()
@@ -34,6 +41,7 @@ export class CompanyComponent implements OnInit {
     this.apiService.Companys().subscribe((res: any)=>{
       if(res.success) {
           this.companys = res.data
+          this.companysForSearch = res.data
           this.loading = false
           
       } else  {
@@ -80,6 +88,13 @@ export class CompanyComponent implements OnInit {
         }
       })
     }
+  }
 
+  onSearchCompanys(event){
+    this.companysForSearch = this.companys
+    var searchCompanyName = event.target.value
+    if(searchCompanyName){
+      this.companysForSearch = this.companysForSearch.filter(item => (item.name.includes(searchCompanyName)));
+    }
   }
 }

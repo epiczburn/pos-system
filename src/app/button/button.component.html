@@ -1,10 +1,10 @@
 <div class="grid text-center">
-    <div class="col-1.5"> <button pButton pRipple type="button" label="Report" [routerLink]="['/dashboard']"></button> </div>
-    <div class="col-1.5"> <button pButton pRipple type="button" label="Store" [routerLink]="['/store']"></button> </div>
+    <div class="col-1.5" [hidden]="reportBtnHidden"> <button pButton pRipple type="button" label="Report" [routerLink]="['/dashboard']"></button> </div>
+    <div class="col-1.5" [hidden]="storeBtnHidden"> <button pButton pRipple type="button" label="Store" [routerLink]="['/store']"></button> </div>
     <!-- <div class="col-4"> <a pButton pRipple type="button" label="Camera" href="/assets/scan.html"></a> </div> -->
-    <div class="col-1.5"> <a pButton pRipple type="button" label="Camera" [routerLink]="['/camera']"></a> </div>
-    <div class="col-1.5"> <a pButton pRipple type="button" label="linenotify" [routerLink]="['/linenotify']"></a> </div>
-    <div class="col-1.5"> <a pButton pRipple type="button" label="producttype" [routerLink]="['/producttype']"></a> </div>
-    <div class="col-1.5"> <a pButton pRipple type="button" label="company" [routerLink]="['/company']"></a> </div>
-    <div class="col-1.5"> <a pButton pRipple type="button" label="users" [routerLink]="['/users']"></a> </div>
+    <div class="col-1.5" [hidden]="cameraBtnHidden"> <a pButton pRipple type="button" label="Camera" [routerLink]="['/camera']"></a> </div>
+    <div class="col-1.5" [hidden]="lineBtnHidden"> <a pButton pRipple type="button" label="linenotify" [routerLink]="['/linenotify']"></a> </div>
+    <!-- <div class="col-1.5"> <a pButton pRipple type="button" label="producttype" [routerLink]="['/producttype']"></a> </div> -->
+    <div class="col-1.5" [hidden]="companyBtnHidden"> <a pButton pRipple type="button" label="company" [routerLink]="['/company']"></a> </div>
+    <div class="col-1.5" [hidden]="userBtnHidden"> <a pButton pRipple type="button" label="users" [routerLink]="['/users']"></a> </div>
 </div>

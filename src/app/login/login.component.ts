@@ -24,14 +24,58 @@ export class LoginComponent implements OnInit {
       console.log('login',res)
       if(res.success){
         this.saveUserToLocalStorage(res.data)
-        this.router.navigate(['store'])
+        this.getCompanys(res.data)
       } else {
+        console.log(JSON.stringify(res))
         alert("login failed")
       }
     })
   }
 
-   saveUserToLocalStorage(user) {
+  getCompanys(user){
+    this.apiService.Companys().subscribe((res: any) => {
+      if (res.success) {
+        let company = res.data
+        company.forEach(element => {
+          if(user.companyId == element.id){
+            this.saveCompanyToLocalStorage(element.name)
+          }
+        });
+        this.getRoles(user)
+      }
+    })
+  }
+
+  getRoles(user){
+    this.apiService.getRoles().subscribe((res: any) => {
+      if (res.success) {
+        let role = res.data
+        role.forEach(element => {
+          if(user.roleId == element.id){
+            this.saveRoleToLocalStorage(element.name)
+
+            if(element.name == 'user'){
+              this.router.navigate(['camera'])
+            }
+            else{
+              this.router.navigate(['store'])
+            }
+          }
+        });
+      }
+    })
+  }
+
+  saveCompanyToLocalStorage(company){
+    localStorage.setItem('user-shop', company);
+  }
+
+  saveRoleToLocalStorage(role){
+    localStorage.setItem('user-role', role);
+  }
+
+  saveUserToLocalStorage(user) {
     localStorage.setItem('user-profile', JSON.stringify(user));
+    this.apiService.refreshToken()
   }
 }

@@ -1,6 +1,11 @@
+<div class="header">
+    <app-logout></app-logout>
+</div>
+<br>
+<br>
 <div class="grid">
     <div class="col-offset-1 col-10">
-        <p-table #dt [value]="companys" [(selection)]="selectedCompanys" dataKey="id" styleClass="p-datatable-customers"
+        <p-table #dt [value]="companysForSearch" [(selection)]="selectedCompanys" dataKey="id" styleClass="p-datatable-customers"
             [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
             [loading]="loading" [paginator]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
@@ -9,7 +14,7 @@
                 <div class="flex align-items-center justify-content-between">
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" placeholder="Search..." />     
+                        <input pInputText type="search" placeholder="Search..." (input)="onSearchCompanys($event)" />
                     </span>
                     <span>
                         <button pButton pRipple label="เพิ่มร้านค้า" icon="pi pi-plus" class="p-button-success mr-2"

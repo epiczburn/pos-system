@@ -5,6 +5,7 @@ import { BarcodeScannerLivestreamComponent } from "ngx-barcode-scanner";
 import { ApiService } from "../api.service";
 import { Product } from '../store/services/product';
 import { BarcodeFormat } from '@zxing/library';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-camera',
@@ -34,7 +35,12 @@ export class CameraComponent implements OnInit {
   editdialog: boolean;
 
 
- constructor( private apiService: ApiService) { }
+  constructor( private apiService: ApiService, private router: Router){
+    var userRole = localStorage.getItem('user-role') ? localStorage.getItem('user-role') : null
+    if(!userRole){
+      this.router.navigate([''])
+    }
+  }
 
  ngOnInit() {
   this.loading = true

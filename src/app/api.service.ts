@@ -17,12 +17,25 @@ export class ApiService {
     }),
   }
 
-
   public login(data) {
     console.log('apilogin')
     return this.http.post(
       `/api/v1/login`,
       JSON.stringify(data),
+      this.httpOptions
+    )
+  }
+
+  public logout() {
+    return this.http.get(
+      `/api/v1/logout`,
+      this.httpOptions
+    )
+  }
+
+  public getRoles() {
+    return this.http.get(
+      `/api/v1/roles`,
       this.httpOptions
     )
   }
@@ -146,5 +159,15 @@ export class ApiService {
     )
   }
   
+  public refreshToken(){
+    this.userProfile = localStorage.getItem('user-profile') ? JSON.parse(localStorage.getItem('user-profile')) : null
+
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'token': this.userProfile?.token ? this.userProfile.token : ''
+      }),
+    }
+  }
 
 }

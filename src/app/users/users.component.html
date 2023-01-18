@@ -1,7 +1,11 @@
- <p>users works!</p>
+<div class="header">
+    <app-logout></app-logout>
+</div>
+<br>
+<br>
 <div class="grid">
     <div class="col-offset-1 col-10">
-        <p-table #dt [value]="users" [(selection)]="selectedUsers" dataKey="id" styleClass="p-datatable-customers"
+        <p-table #dt [value]="usersForSearch" [(selection)]="selectedUsers" dataKey="id" styleClass="p-datatable-customers"
             [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
             [loading]="loading" [paginator]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
@@ -10,7 +14,7 @@
                 <div class="flex align-items-center justify-content-between">
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" placeholder="Search..." />     
+                        <input pInputText type="search" placeholder="Search..." (input)="onSearchUsers($event)" />
                     </span>
                     <span>
                         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
@@ -21,34 +25,39 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="name"> รายชื่อร้านค้า </th>
+                    <th pSortableColumn="username"> ชื่อผู้ใช้ </th>
+                    <th pSortableColumn="rolename"> ตำแหน่ง </th>
                     <th></th>
                     <th></th>
                     <th></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-company>
+            <ng-template pTemplate="body" let-user>
                 <tr class="p-selectable-row">  
                     
                     <td>
-                        <span class="p-column-title">ประเภทสินค้า</span>
-                        {{company.name}}
+                        {{user.company.name}}
                     </td>
-                    <td></td>
+                    <td>
+                        {{user.username}}
+                    </td>
+                    <td>
+                        {{user.role.name}}
+                    </td>
                     <td></td>
                     <td></td>
                     <td>
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                            (click)="edit(company)"></button>
+                            (click)="edit(user)"></button>
+                    
                     </td>
-
-                   
 
 
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="8">No customers found.</td>
+                    <td colspan="8">No products found.</td>
                 </tr>
             </ng-template>
         </p-table>
@@ -57,15 +66,26 @@
             <ng-template pTemplate="content">
                 
                 <div class="field">
-                    <label for="barcode">แก้ไขชื่อพนักงาน</label>
-                    <input type="text" pInputText id="user" [(ngModel)]="user.name" required autofocus />
+                    <label for="barcode">Username</label>
+                    <input type="text" pInputText id="user" *ngIf="user" [(ngModel)]="user.username" [disabled]="isClickFromEdit" required autofocus />
                 </div>
                 <div class="field">
-                    <label for="barcode">รหัสผ่าน</label>
-                    <input type="text" pInputText id="user" [(ngModel)]="user.password" required autofocus />
+                    <label for="barcode">Password</label>
+                    <input type="text" pInputText id="user" *ngIf="user" [(ngModel)]="user.password" required autofocus />
                     
                 </div>
-                
+                <div class="field">
+                    <label for="barcode">Name</label>
+                    <input type="text" pInputText id="user" *ngIf="user" [(ngModel)]="user.name" required autofocus />
+                </div>
+                <div class="field">
+                    <label for="barcode">RoleId[ 1 = admin 2 = mamager 3 = user ]</label>
+                    <input type="text" pInputText id="user" [(ngModel)]="user.role && user.role.name" [disabled]="isClickFromEdit" required autofocus />
+                </div>
+                <div class="field">
+                    <label for="barcode">CompanyId</label>
+                    <input type="text" pInputText id="user" [(ngModel)]="user.company && user.company.name" [disabled]="isClickFromEdit" required autofocus />
+                </div>
                 
             </ng-template>
 

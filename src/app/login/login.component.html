@@ -7,7 +7,7 @@
             <div class="p-input-icon-right">
                 <i class="pi pi-arrow-circle-right"></i>
                 <input #username (keyup.enter)="handleLogin()" autofocus pInputText autocomplete="off"
-                    class="p-inputtext-sm" placeholder="Username" type="username" formControlName="username">
+                    class="p-inputtext-sm" placeholder="ชื่อผู้ใช้" type="username" formControlName="username">
             </div>
         </div>
     
@@ -15,9 +15,12 @@
             <div class="p-input-icon-right">
                 <i class="pi pi-arrow-circle-right"></i>
                 <input #password (keyup.enter)="handleLogin()" autofocus pInputText autocomplete="off"
-                    class="p-inputtext-sm" placeholder="Password" type="password" formControlName="password">
+                    class="p-inputtext-sm" placeholder="รหัสผ่าน" type="password" formControlName="password">
+                    
+                    
             </div>
+            <br><br><p-button class="center" #submitLogin (keyup.enter)="handleLogin()" label="เข้าสู่ระบบ" type="submit"></p-button>
         </div>
-        <p-button #submitLogin (keyup.enter)="handleLogin()" label="Submit" type="submit"></p-button>
+        
     </form>
 </div>

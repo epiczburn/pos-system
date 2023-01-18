@@ -17,4 +17,11 @@
     background-image: url($uri);
     background-size: $size;
     background-position: $position;
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+  
 }

@@ -1,3 +1,8 @@
+<div class="header">
+  <app-logout></app-logout>
+</div>
+<br>
+<br>
 <div class="field col-12 md:col-4">
     <label for="range">Range </label>
     <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
@@ -78,7 +83,7 @@
         </ng-template>
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="8">No customers found.</td>
+            <td colspan="8">No products found.</td>
           </tr>
         </ng-template>
       </p-table>

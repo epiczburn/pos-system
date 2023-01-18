@@ -1,3 +1,8 @@
+<div class="header">
+  <app-logout></app-logout>
+</div>
+<br>
+<br>
 <div class="camera-container mb-3">
   <zxing-scanner *ngIf="cameraReady" [formats]="allowedFormats" (scanSuccess)="scanCompleteHandler($event)"></zxing-scanner>
 </div>

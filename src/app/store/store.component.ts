@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
+import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup,FormArray } from '@angular/forms';
 @Component({
     selector: 'app-store',
@@ -15,7 +16,13 @@ export class StoreComponent implements OnInit {
   public isNew: boolean
   public itemForms: FormGroup;
   public itemsForSearch: Array<any>
-  constructor(private apiService: ApiService, private fb: FormBuilder) { }
+
+  constructor(private apiService: ApiService, private fb: FormBuilder, private router: Router) { 
+    var userRole = localStorage.getItem('user-role') ? localStorage.getItem('user-role') : null
+    if(!userRole || userRole == 'user'){
+      this.router.navigate([''])
+    }
+  }
 
   ngOnInit(): void {
     this.itemForms = this.fb.group({});

@@ -1,9 +1,10 @@
-<br><br>
+<div class="header">
+    <app-logout></app-logout>
+</div>
+<br>
+<br>
 <div class="grid">
     <div class="col-offset-1 col-10">
-        <div id="header">
-            <app-logout></app-logout>
-        </div>
         <br>
         <p-table #dt [value]="producttypes" [(selection)]="selectedProducttypes" dataKey="id" styleClass="p-datatable-customers"
             [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
