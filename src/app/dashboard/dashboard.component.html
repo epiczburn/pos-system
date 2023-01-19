@@ -1,95 +1,75 @@
 <div class="header">
-  <app-logout></app-logout>
+  <app-menubar></app-menubar>
 </div>
-<br>
-<br>
-<div class="field col-12 md:col-4">
-    <label for="range">Range </label>
-    <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
-    
-        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-            (click)="selecttable()"></button>
-    
-</div>
+
+
 <div class="grid">
-    <div class="col-offset-1 col-10">
-      <p-table #dt
-        [value]="reportsForSearch"
-        dataKey="id"
-        styleClass="p-datatable-customers"
-        [rowHover]="true"
-        [rows]="10"
-        [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        [loading]="loading"
-        [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [filterDelay]="0"
-      >
-        <ng-template pTemplate="caption">
-          <div class="flex align-items-center justify-content-between">
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" placeholder="Search..."(input)="onSearchProduct($event)" />
-            </span>
-  
-            
+  <div class="col-offset-1 col-10">
+    <p-table #dt [value]="reportsForSearch" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+      [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" 
+      [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [filterDelay]="0">
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center" style="justify-content: space-between;">
+          <span class="p-input-icon-left" style="order: 1;">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Search..." (input)="onSearchProduct($event)" />
+          </span>
+
+          <div class="flex align-items-center" style="justify-content: space-between; order: 3;">
+            <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range">
+            </p-calendar>
+            <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success mr-2" style="margin-left: 10px;"
+              (click)="selecttable()"></button>
           </div>
-        </ng-template>
-  
-        <ng-template pTemplate="header">
-          <tr>
-            <!-- <th pSortableColumn="img">
-              รูปภาพ <p-sortIcon field="img"></p-sortIcon>
-            </th> -->
-            <th pSortableColumn="name">
-              ชื่อสินค้า <p-sortIcon field="name"></p-sortIcon>
-            </th>
-            <th pSortableColumn="barcode">
-                จำนวนที่ขายได้ <p-sortIcon field="barcode"></p-sortIcon>
-            </th>
-            <th pSortableColumn="quantity">
-                ราคาต้นทุนต่อชิ้น <p-sortIcon field="quantity"></p-sortIcon>
-            </th>
-            <th pSortableColumn="price">
-              กำไรที่ได้รับ <p-sortIcon field="price"></p-sortIcon>
-            </th>
-            <th></th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-          <tr class="p-selectable-row">
-            <!-- <td>
-              <img [src]="product.img" width="100px" height="100px" />
-            </td> -->
-            <td>
-              <span class="p-column-title">ชื่อสินค้า</span>
-              <span class="image-text">{{ product.name }}</span>
-            </td>
-            <td>
-              <span class="p-column-title">จำนวนที่ขายได้</span>
-              {{ product.quantity }}
-            </td>
-            <td>
-              <span class="p-column-title">ราคาต้นทุนต่อชิ้น</span>
-              {{ product.costPerPiece }}
-            </td>
-            <td>
-              <span class="p-column-title">กำไรที่ได้รับ</span>
-              {{ product.total-(product.quantity*product.costPerPiece) }} บาท
-            </td>
-            
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="8">No products found.</td>
-          </tr>
-        </ng-template>
-      </p-table>
-      
-    </div>
+
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">
+            ชื่อสินค้า <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="barcode">
+            จำนวนที่ขายได้ <p-sortIcon field="barcode"></p-sortIcon>
+          </th>
+          <th pSortableColumn="quantity">
+            ราคาต้นทุนต่อชิ้น <p-sortIcon field="quantity"></p-sortIcon>
+          </th>
+          <th pSortableColumn="price">
+            กำไรที่ได้รับ <p-sortIcon field="price"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr class="p-selectable-row">
+          <td>
+            <span class="p-column-title">ชื่อสินค้า</span>
+            <span class="image-text">{{ product.name }}</span>
+          </td>
+          <td>
+            <span class="p-column-title">จำนวนที่ขายได้</span>
+            {{ product.quantity }}
+          </td>
+          <td>
+            <span class="p-column-title">ราคาต้นทุนต่อชิ้น</span>
+            {{ product.costPerPiece }}
+          </td>
+          <td>
+            <span class="p-column-title">กำไรที่ได้รับ</span>
+            {{ product.total-(product.quantity*product.costPerPiece) }} บาท
+          </td>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">No products found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
   </div>
-<div id="footer">
-    <app-button></app-button>
-  </div>
+</div>

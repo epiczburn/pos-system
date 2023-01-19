@@ -1,154 +1,134 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import { MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
+import { ApiService } from "../api.service";
 
 @Component({
-  selector: 'app-menubar',
-  templateUrl: './menubar.component.html',
-  styleUrls: ['./menubar.component.css']
+    selector: 'app-menubar',
+    templateUrl: './menubar.component.html',
+    styleUrls: ['./menubar.component.css']
 })
 export class MenubarComponent implements OnInit {
 
-  
-
-  constructor() { }
-
-  items: MenuItem[];
-
-  ngOnInit(): void {
-
+    // ````````````````````````````````````````````
+    // ```````````````` Logout bar ````````````````
+    // ````````````````````````````````````````````
+    public shop: string
+    public username: string
+    public role: string
     
+    // ````````````````````````````````````````````
+    // ````````````````` Menu bar `````````````````
+    // ````````````````````````````````````````````
+    reportBtnVisible : boolean = true
+    storeBtnVisible : boolean = true
+    cameraBtnVisible : boolean = true
+    lineBtnVisible : boolean = true
+    companyBtnVisible : boolean = true
+    userBtnVisible : boolean = true
 
-    this.items = [
-      {
-          label:'File',
-          icon:'pi pi-fw pi-file',
-          items:[
-              {
-                  label:'New',
-                  icon:'pi pi-fw pi-plus',
-                  items:[
-                  {
-                      label:'Bookmark',
-                      icon:'pi pi-fw pi-bookmark'
-                  },
-                  {
-                      label:'Video',
-                      icon:'pi pi-fw pi-video'
-                  },
+    constructor(private apiService: ApiService, private router: Router) { }
 
-                  ]
-              },
-              {
-                  label:'Delete',
-                  icon:'pi pi-fw pi-trash'
-              },
-              {
-                  separator:true
-              },
-              {
-                  label:'Export',
-                  icon:'pi pi-fw pi-external-link'
-              }
-          ]
-      },
-      {
-          label:'Edit',
-          icon:'pi pi-fw pi-pencil',
-          items:[
-              {
-                  label:'Left',
-                  icon:'pi pi-fw pi-align-left'
-              },
-              {
-                  label:'Right',
-                  icon:'pi pi-fw pi-align-right'
-              },
-              {
-                  label:'Center',
-                  icon:'pi pi-fw pi-align-center'
-              },
-              {
-                  label:'Justify',
-                  icon:'pi pi-fw pi-align-justify'
-              },
+    items: MenuItem[];
 
-          ]
-      },
-      {
-          label:'Users',
-          icon:'pi pi-fw pi-user',
-          items:[
-              {
-                  label:'New',
-                  icon:'pi pi-fw pi-user-plus',
+    ngOnInit(): void {
+        // ````````````````````````````````````````````
+        // ```````````````` Logout bar ````````````````
+        // ````````````````````````````````````````````
+        var userShop = localStorage.getItem('user-shop') ? localStorage.getItem('user-shop') : null
+        var userProfile = localStorage.getItem('user-profile') ? JSON.parse(localStorage.getItem('user-profile')) : null
+        var userRole = localStorage.getItem('user-role') ? localStorage.getItem('user-role') : null
+        this.shop = userShop
+        this.username = userProfile.name
+        this.role = userRole
 
-              },
-              {
-                  label:'Delete',
-                  icon:'pi pi-fw pi-user-minus',
+        // ````````````````````````````````````````````
+        // ````````````````` Menu bar `````````````````
+        // ````````````````````````````````````````````
+        this.setButtonVisibility()
+        this.setMenuItem()
+    }
+    
+    // ````````````````````````````````````````````
+    // ````````````````` Menu bar `````````````````
+    // ````````````````````````````````````````````
+    setMenuItem(){
+        this.items = [
+            {
+                label: 'Report',
+                icon: 'pi pi-fw pi-chart-bar',
+                routerLink: ['/dashboard'],
+                visible: this.reportBtnVisible
+            },
+            {
+                label: 'Store',
+                icon: 'pi pi-fw pi-shopping-cart',
+                routerLink: ['/store'],
+                visible: this.storeBtnVisible
+            },
+            {
+                label: 'Camera',
+                icon: 'pi pi-fw pi-camera',
+                routerLink: ['/camera'],
+                visible: this.cameraBtnVisible
+            },
+            {
+                label: 'Connect LineNotify',
+                icon: 'pi pi-fw pi-arrow-right-arrow-left',
+                routerLink: ['/linenotify'],
+                visible: this.lineBtnVisible
+            },
+            {
+                label: 'Edit Company',
+                icon: 'pi pi-fw pi-home',
+                routerLink: ['/company'],
+                visible: this.companyBtnVisible
+            },
+            {
+                label: 'Edit User',
+                icon: 'pi pi-fw pi-user-edit',
+                routerLink: ['/users'],
+                visible: this.userBtnVisible
+            }
+        ];
+    }
 
-              },
-              {
-                  label:'Search',
-                  icon:'pi pi-fw pi-users',
-                  items:[
-                  {
-                      label:'Filter',
-                      icon:'pi pi-fw pi-filter',
-                      items:[
-                          {
-                              label:'Print',
-                              icon:'pi pi-fw pi-print'
-                          }
-                      ]
-                  },
-                  {
-                      icon:'pi pi-fw pi-bars',
-                      label:'List'
-                  }
-                  ]
-              }
-          ]
-      },
-      {
-          label:'Events',
-          icon:'pi pi-fw pi-calendar',
-          items:[
-              {
-                  label:'Edit',
-                  icon:'pi pi-fw pi-pencil',
-                  items:[
-                  {
-                      label:'Save',
-                      icon:'pi pi-fw pi-calendar-plus'
-                  },
-                  {
-                      label:'Delete',
-                      icon:'pi pi-fw pi-calendar-minus'
-                  },
-
-                  ]
-              },
-              {
-                  label:'Archieve',
-                  icon:'pi pi-fw pi-calendar-times',
-                  items:[
-                  {
-                      label:'Remove',
-                      icon:'pi pi-fw pi-calendar-minus'
-                  }
-                  ]
-              }
-          ]
-      },
-      {
-          label:'Quit',
-          icon:'pi pi-fw pi-power-off'
+    setButtonVisibility(){
+      var userRole = localStorage.getItem('user-role') ? localStorage.getItem('user-role') : null
+      switch(userRole){
+        case 'manager': 
+          this.companyBtnVisible = false
+          this.userBtnVisible = false
+          break
+        case 'user': 
+          this.reportBtnVisible = false
+          this.storeBtnVisible = false
+          this.lineBtnVisible = false
+          this.companyBtnVisible = false
+          this.userBtnVisible = false
+          break
       }
-      
-  ];
+    }
 
-  }
-  insertNewProduct(){}
-    
+    // ````````````````````````````````````````````
+    // ```````````````` Logout bar ````````````````
+    // ````````````````````````````````````````````
+    logout() {
+        this.apiService.logout().subscribe((res: any) => {
+            if (res.success) {
+                alert('Logout สำเร็จ')
+                this.removeUserInLocalStorage()
+                this.router.navigate([''])
+            } else {
+                alert('เกิดข้อผิดพลาดในการ Logout!')
+            }
+        })
+    }
+
+    removeUserInLocalStorage() {
+        localStorage.removeItem('user-shop');
+        localStorage.removeItem('user-profile');
+        localStorage.removeItem('user-role');
+    }
+
 }

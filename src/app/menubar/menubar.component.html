@@ -1,14 +1,27 @@
-<p-menubar [model]="items">
+<p-menubar>
     <ng-template pTemplate="start">
+        <h3 class="text-primary-900">ร้านค้า: </h3>
+        <h3>{{shop}}</h3>
+        <br>
+        <h3 class="text-primary-900">ชื่อผู้ใช้: </h3>
+        <h3>{{username}}</h3>
+        <br>
+        <h3 class="text-primary-900">ตำแหน่ง: </h3>
+        <h3>{{role}}</h3>
+
     </ng-template>
     <ng-template pTemplate="end">
-        <input type="text" pInputText placeholder="Search">
         <span>
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-              (click)="insertNewProduct()"></button>
-          </span>
+            <button pButton pRipple label="ออกจากระบบ" icon="pi pi-power-off" class="p-button-danger mr-2"
+                (click)="logout()"></button>
+        </span>
     </ng-template>
 </p-menubar>
+<p-menubar [model]="items">
+    <!-- <ng-template pTemplate="start">
+    </ng-template>
+    <ng-template pTemplate="end">
+    </ng-template> -->
+</p-menubar>
 <div id="footer">
-    asdasd
 </div>

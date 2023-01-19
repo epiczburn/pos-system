@@ -1,5 +1,5 @@
 <div class="header">
-  <app-logout></app-logout>
+  <app-menubar></app-menubar>
 </div>
 <br>
 <br>
@@ -7,7 +7,7 @@
   <zxing-scanner *ngIf="cameraReady" [formats]="allowedFormats" (scanSuccess)="scanCompleteHandler($event)"></zxing-scanner>
 </div>
 
-<p-table [value]="sales" dataKey="id" [loading]="loading" [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="sales" dataKey="id"  [tableStyle]="{'min-width': '50rem'}">
   <ng-template pTemplate="header">
       <tr>
           <th>รหัสบาร์โค้ด</th>
@@ -48,9 +48,9 @@
 </p-table>
 <br><br><br><br>
 <div class="grid text-center">
-  <div class="col-6"> <button pButton pRipple type="button" label="confirm"(click)="opendialog()"></button></div>
+  <div class="col-6"> <button pButton pRipple type="button" label="ยืนยัน"(click)="opendialog()"></button></div>
   <!-- <div class="col-6"> <button pButton pRipple type="button" label="confirm"(click)="confirmSale()"></button></div> -->
-  <div class="col-6"> <button pButton pRipple type="button" label="cancel" (click)="cancelList()"></button> </div>
+  <div class="col-6"> <button pButton pRipple type="button" label="ยกเลิก" (click)="cancelList()"></button> </div>
 </div>
 
 <p-dialog [(visible)]="editdialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
@@ -85,6 +85,3 @@
             </ng-template>
         </p-dialog>
         <br><br>
-<div id="footer">
-  <app-button></app-button>
-</div>

@@ -50,7 +50,6 @@ export class CameraComponent implements OnInit {
           this.products = res.data;
       }
   }, (err: any) => {
-    alert('ไม่สามารถดึงข้อมูลสินค้าได้!! ')
     console.log(err);
     return
   })
