@@ -128,7 +128,7 @@ confirmSale(){
    object.products.push(product)
  });
 
- console.log(object)
+ console.log(JSON.stringify(object))
 
  this.apiService.confirmSale(object).subscribe((res: any) => {
   console.log(res)

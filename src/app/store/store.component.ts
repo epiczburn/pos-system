@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../api.service";
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup,FormArray } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 @Component({
-    selector: 'app-store',
-    templateUrl: './store.component.html',
-    styleUrls: ['./store.component.css']
+  selector: 'app-store',
+  templateUrl: './store.component.html',
+  styleUrls: ['./store.component.css']
 })
 export class StoreComponent implements OnInit {
 
@@ -17,9 +17,9 @@ export class StoreComponent implements OnInit {
   public itemForms: FormGroup;
   public itemsForSearch: Array<any>
 
-  constructor(private apiService: ApiService, private fb: FormBuilder, private router: Router) { 
+  constructor(private apiService: ApiService, private fb: FormBuilder, private router: Router) {
     var userRole = localStorage.getItem('user-role') ? localStorage.getItem('user-role') : null
-    if(!userRole || userRole == 'user'){
+    if (!userRole || userRole == 'user') {
       this.router.navigate([''])
     }
   }
@@ -64,19 +64,21 @@ export class StoreComponent implements OnInit {
       price: new FormControl(selected.price),
       cost: new FormControl(selected.cost),
       // img: new FormControl(selected.img)
-      
-      
+
+
     })
     this.handleDialog(true);
   }
 
   async deleteItem(selected: any) {
     const { id } = selected;
-    this.apiService.deleteProduct(id).subscribe((res: any) => {
-      if (res) {
-        this.getItems({ refresh: true })
-      }
-    });
+    if (confirm("ยืนยันที่จะลบสินค้า")) {
+      this.apiService.deleteProduct(id).subscribe((res: any) => {
+        if (res) {
+          this.getItems({ refresh: true })
+        }
+      });
+    }
   }
 
   getItems({ refresh = false } = {}) {
@@ -134,10 +136,10 @@ export class StoreComponent implements OnInit {
     this.dialogForms = isOpen;
   }
 
-  onSearchProduct(event: any){
+  onSearchProduct(event: any) {
     this.itemsForSearch = this.items
     var searchProductNameOrBarcode = event.target.value
-    if(searchProductNameOrBarcode){
+    if (searchProductNameOrBarcode) {
       this.itemsForSearch = this.itemsForSearch.filter(item => (item.name.includes(searchProductNameOrBarcode)) || (item.barcode.includes(searchProductNameOrBarcode)));
     }
   }
