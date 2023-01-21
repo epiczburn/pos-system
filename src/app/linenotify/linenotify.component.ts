@@ -35,7 +35,7 @@ export class LinenotifyComponent implements OnInit {
         if(res.success){
           console.log(res)
         } else {
-          alert("login failed")
+          alert("ผิดพลาด")
         }
       })
 

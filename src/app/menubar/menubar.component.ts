@@ -55,37 +55,37 @@ export class MenubarComponent implements OnInit {
     setMenuItem(){
         this.items = [
             {
-                label: 'Report',
+                label: 'รายการยอดขาย',
                 icon: 'pi pi-fw pi-chart-bar',
                 routerLink: ['/dashboard'],
                 visible: this.reportBtnVisible
             },
             {
-                label: 'Store',
+                label: 'รายการสินค้า',
                 icon: 'pi pi-fw pi-shopping-cart',
                 routerLink: ['/store'],
                 visible: this.storeBtnVisible
             },
             {
-                label: 'Camera',
+                label: 'สแกนสินค้า',
                 icon: 'pi pi-fw pi-camera',
                 routerLink: ['/camera'],
                 visible: this.cameraBtnVisible
             },
             {
-                label: 'Connect LineNotify',
+                label: 'เชื่อมต่อ LineNotify',
                 icon: 'pi pi-fw pi-arrow-right-arrow-left',
                 routerLink: ['/linenotify'],
                 visible: this.lineBtnVisible
             },
             {
-                label: 'Edit Company',
+                label: 'แก้ไขร้านค้า',
                 icon: 'pi pi-fw pi-home',
                 routerLink: ['/company'],
                 visible: this.companyBtnVisible
             },
             {
-                label: 'Edit User',
+                label: 'แก้ไขผู้ใช้',
                 icon: 'pi pi-fw pi-user-edit',
                 routerLink: ['/users'],
                 visible: this.userBtnVisible
