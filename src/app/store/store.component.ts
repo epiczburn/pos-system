@@ -40,7 +40,7 @@ export class StoreComponent implements OnInit {
       quantity: new FormControl(""),
       price: new FormControl(""),
       cost: new FormControl(""),
-      // img: new FormControl("")
+      img: new FormControl(null)
     })
   }
 
@@ -63,7 +63,7 @@ export class StoreComponent implements OnInit {
       quantity: new FormControl(selected.quantity),
       price: new FormControl(selected.price),
       cost: new FormControl(selected.cost),
-      // img: new FormControl(selected.img)
+      img: new FormControl(selected.img)
 
 
     })
@@ -114,7 +114,7 @@ export class StoreComponent implements OnInit {
     this.handleDialog(false);
     // this.itemForms.value.productTypeId = this.itemForms.value.productTypeId.id
     const value = { ...this.itemForms.value };
-    console.log(value)
+  
     if (this.isNew) {
       this.apiService.insertNewProduct(value).subscribe((res: any) => {
         if (res) {
@@ -141,6 +141,19 @@ export class StoreComponent implements OnInit {
     var searchProductNameOrBarcode = event.target.value
     if (searchProductNameOrBarcode) {
       this.itemsForSearch = this.itemsForSearch.filter(item => (item.name.includes(searchProductNameOrBarcode)) || (item.barcode.includes(searchProductNameOrBarcode)));
+    }
+  }
+  readUrl(event:any) {
+    // console.log(event)
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+
+      reader.onload = (event: ProgressEvent) => {
+        this.itemForms.value.img = reader.result.toString().split(',')[1];
+      }
+  
+      reader.readAsDataURL(event.target.files[0]);
     }
   }
 

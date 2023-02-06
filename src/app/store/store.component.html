@@ -24,9 +24,10 @@
 
       <ng-template pTemplate="header">
         <tr>
-          <!-- <th pSortableColumn="img">
+          <th pSortableColumn="img">
               รูปภาพ <p-sortIcon field="img"></p-sortIcon>
-            </th> -->
+              <img src="" alt="">
+            </th>
           <th pSortableColumn="name">
             ชื่อสินค้า <p-sortIcon field="name"></p-sortIcon>
           </th>
@@ -47,9 +48,9 @@
       </ng-template>
       <ng-template pTemplate="body" let-product>
         <tr class="p-selectable-row">
-          <!-- <td>
+          <td>
               <img [src]="product.img" width="100px" height="100px" />
-            </td> -->
+            </td>
           <td>
             <span class="p-column-title">ชื่อสินค้า</span>
             <span class="image-text">{{ product.name }}</span>
@@ -109,6 +110,10 @@
             <label for="cost">ราคาต้นทุน</label>
             <input type="text" pInputText id="cost" formControlName="cost" required autofocus />
             <!-- <small class="p-error" *ngIf="submitted && !product.cost"> กรุณาใส่ชื่อสินค้า </small> -->
+          </div>
+          <div class="field">
+            <label for="img">รูปภาพ</label>
+            <input type="file" pInputfile id="img" formControlName="img" required autofocus (change)="readUrl($event)" />
           </div>
 
           
