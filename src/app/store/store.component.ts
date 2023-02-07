@@ -13,8 +13,11 @@ export class StoreComponent implements OnInit {
   public productTypes: Array<any>
   public loading: boolean
   public dialogForms: boolean
+  public dialogDetailForms: boolean
+  public confirmDialog: boolean
   public isNew: boolean
   public itemForms: FormGroup;
+  public selectedDeleteItem: string;
   public itemsForSearch: Array<any>
 
   constructor(private apiService: ApiService, private fb: FormBuilder, private router: Router) {
@@ -70,14 +73,40 @@ export class StoreComponent implements OnInit {
     this.handleDialog(true);
   }
 
-  async deleteItem(selected: any) {
-    const { id } = selected;
-    if (confirm("ยืนยันที่จะลบสินค้า")) {
+  viewDetail(selected: any) {
+    console.log(this)
+    this.isNew = false;
+    // const productType = this.productTypes.find(ele => {
+    //   return ele.name == selected.productType.name
+    // })
+
+    this.itemForms = this.fb.group({
+      id: new FormControl(selected.id),
+      barcode: new FormControl(selected.barcode),
+      name: new FormControl(selected.name),
+      // productTypeId: new FormControl(productType.name),
+      productTypeId: new FormControl(1),
+      quantity: new FormControl(selected.quantity),
+      price: new FormControl(selected.price),
+      cost: new FormControl(selected.cost),
+      img: new FormControl(selected.img)
+
+
+    })
+    this.handleViewDetailDialog(true);
+  }
+
+  async deleteItem() {
+    const id = this.selectedDeleteItem;
+    if (id) {
+      
       this.apiService.deleteProduct(id).subscribe((res: any) => {
         if (res) {
           this.getItems({ refresh: true })
         }
       });
+
+      this.handleConfirmDeleteDialog(false, null)
     }
   }
 
@@ -136,6 +165,10 @@ export class StoreComponent implements OnInit {
     this.dialogForms = isOpen;
   }
 
+  handleViewDetailDialog(isOpen: boolean) {
+    this.dialogDetailForms = isOpen;
+  }
+
   onSearchProduct(event: any) {
     this.itemsForSearch = this.items
     var searchProductNameOrBarcode = event.target.value
@@ -154,6 +187,14 @@ export class StoreComponent implements OnInit {
       }
   
       reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+
+  handleConfirmDeleteDialog(isOpen: boolean, selected: any) {
+    this.confirmDialog = isOpen;
+    if(selected) {
+      this.selectedDeleteItem = selected.id
     }
   }
 

@@ -14,11 +14,11 @@ import { MenubarComponent } from 'src/app/menubar/menubar.component';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
+  { path: '', component: LoginComponent },
   {
     path: "",
     component: AppComponent,
     children: [
-      { path: '', component: LoginComponent },
       { path: 'store', component: StoreComponent },
       // { path: 'store-example', component: StroreExampleComponent },
       { path: 'camera', component: CameraComponent },

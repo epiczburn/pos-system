@@ -10,7 +10,7 @@
                 </div>
 
                 <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">อีเมล</label>
+                    <label for="email1" class="block text-900 text-xl font-medium mb-2">ชื่อผู้ใช้</label>
                     <input id="email1" type="username" autofocus  autocomplete="off" #username (keyup.enter)="handleLogin()" placeholder="ชื่อผู้ใช้" formControlName="username" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
 
                     <label for="password1" class="block text-900 font-medium text-xl mb-2">รหัสผ่าน</label>
