@@ -3,9 +3,9 @@ import { ApiService } from "../api.service";
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, FormArray } from '@angular/forms';
 @Component({
-  selector: 'app-store',
+  // selector: 'app-store',
   templateUrl: './store.component.html',
-  styleUrls: ['./store.component.css']
+  // styleUrls: ['./store.component.css']
 })
 export class StoreComponent implements OnInit {
 

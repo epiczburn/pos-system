@@ -70,6 +70,10 @@ export class LayoutService {
         }
     }
 
+    onOverlaySubmenuOpen() {
+        this.overlayOpen.next(null);
+    }
+
     showProfileSidebar() {
         this.state.profileSidebarVisible = !this.state.profileSidebarVisible;
         if (this.state.profileSidebarVisible) {
@@ -87,6 +91,10 @@ export class LayoutService {
 
     isDesktop() {
         return window.innerWidth > 991;
+    }
+
+    isSlim() {
+        return this.config.menuMode === 'slim';
     }
 
     isMobile() {

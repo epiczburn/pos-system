@@ -1,4 +1,4 @@
-@media screen and (min-width: 1960px) {
+@media screen and (min-width: 1729px) {
     .layout-main, .landing-wrapper {
         width: 1504px;
         margin-left: auto !important;
@@ -76,6 +76,12 @@
         }
 
         .layout-mask {
+            z-index: 998;
+            background-color: var(--mask-bg);
+
+        }
+
+        .layout-mask {
             display: none;
             position: fixed;
             top: 0;
@@ -93,7 +99,6 @@
 
             .layout-mask {
                 display: block;
-                animation: fadein $transitionDuration;
             }
         }
     }

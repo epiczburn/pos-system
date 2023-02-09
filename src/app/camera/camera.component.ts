@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   selector: 'app-camera',
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.css']
+  
 })
 export class CameraComponent implements OnInit {
   @ViewChild(BarcodeScannerLivestreamComponent)
@@ -48,6 +49,7 @@ export class CameraComponent implements OnInit {
       console.log(res)
       if (res.success) {
           this.products = res.data;
+          
       }
   }, (err: any) => {
     console.log(err);

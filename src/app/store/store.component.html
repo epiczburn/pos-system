@@ -1,217 +1,210 @@
-<div class="header">
-
-  <div class="layout-main">
-    <div class="col-12">
-      <div class="card px-6 py-6">
-        <app-menubar></app-menubar>
-      </div>
-    </div>
-  </div>
-</div>
-<br>
-<br>
-
-<div class="layout-main-container">
-  <div class="layout-main">
-    <div class="grid">
-      <div class="col-12">
-        <div class="card px-6 py-6">
-          <div class="col-offset-1 col-10">
-            <p-table #dt [value]="itemsForSearch" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
-              [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
-              [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-              [filterDelay]="0">
-              <ng-template pTemplate="caption">
-                <div class="flex align-items-center justify-content-between">
-                  <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="search" placeholder="Search..." (input)="onSearchProduct($event)" />
-                  </span>
-
-                  <span>
-                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
-                      (click)="insertNewProduct()"></button>
-                  </span>
-                </div>
-              </ng-template>
-
-              <ng-template pTemplate="header">
-                <tr>
-                  <th pSortableColumn="img">
-                    รูปภาพ <p-sortIcon field="img"></p-sortIcon>
-                    <img src="" alt="">
-                  </th>
-                  <th pSortableColumn="name">
-                    ชื่อสินค้า <p-sortIcon field="name"></p-sortIcon>
-                  </th>
-                  <th pSortableColumn="barcode">
-                    รหัสบาร์โค้ด <p-sortIcon field="barcode"></p-sortIcon>
-                  </th>
-                  <th pSortableColumn="quantity">
-                    จำนวนที่เหลือ <p-sortIcon field="quantity"></p-sortIcon>
-                  </th>
-                  <th pSortableColumn="cost">
-                    ราคาต้นทุน <p-sortIcon field="cost"></p-sortIcon>
-                  </th>
-                  <th pSortableColumn="price">
-                    ราคาขาย <p-sortIcon field="price"></p-sortIcon>
-                  </th>
-                  <th></th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-product>
-                <tr class="p-selectable-row">
-                  <td>
-                    <img [src]="product.img" width="100px" height="100px" />
-                  </td>
-                  <td>
-                    <span class="p-column-title">ชื่อสินค้า</span>
-                    <span class="image-text">{{ product.name }}</span>
-                  </td>
-                  <td>
-                    <span class="p-column-title">รหัสบาร์โค้ด</span>
-                    {{ product.barcode }}
-                  </td>
-                  <td>
-                    <span class="p-column-title">จำนวน</span>
-                    {{ product.quantity }}
-                  </td>
-                  <td>
-                    <span class="p-column-title">ราคาต้นทุน</span>
-                    {{ product.cost }}
-                  </td>
-                  <td>
-                    <span class="p-column-title">ราคาขาย</span>
-                    {{ product.price }}
-                  </td>
-                  <td>
-                    <button pButton pRipple icon="pi pi-search" class="p-button-rounded p-button-secondary mr-2"
-                      (click)="viewDetail(product)"></button>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                      (click)="editItem(product)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                      (click)="handleConfirmDeleteDialog(true, product)"></button>
-
-                  </td>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="emptymessage">
-                <tr>
-                  <td colspan="8">No products found.</td>
-                </tr>
-              </ng-template>
-            </p-table>
-            <p-dialog [(visible)]="confirmDialog" [style]="{width: '350px'}" header="ยืนยันการทำรายการ" [modal]="true"
-              styleClass="p-fluid">
-
-
-              <ng-template pTemplate="footer">
-                <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
-                  (click)="handleConfirmDeleteDialog(false, null)"></button>
-                <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
-                  (click)="deleteItem()"></button>
-              </ng-template>
-            </p-dialog>
-
-            <p-dialog [(visible)]="dialogForms" [style]="{ width: '450px' }" header="รายละเอียดสินค้า" [modal]="true"
-              styleClass="p-fluid">
-              <ng-template pTemplate="content">
-                <form *ngIf="itemForms" [formGroup]="itemForms">
-                  <div class="field">
-                    <label for="barcode">รหัสบาร์โค้ดสินค้า</label>
-                    <input type="text" pInputText id="barcode" formControlName="barcode" required autofocus />
-                    <!-- <small class="p-error" *ngIf="submitted && !product.barcode"> กรุณาใส่รหัสบาร์โค้ดสินค้า </small> -->
-                  </div>
-                  <div class="field">
-                    <label for="name">ชื่อสินค้า</label>
-                    <input type="text" pInputText id="name" formControlName="name" required autofocus />
-                    <!-- <small class="p-error" *ngIf="submitted && !product.name"> กรุณาใส่ชื่อสินค้า </small> -->
-                  </div>
-                  <!-- <div class="field">
-                <label for="name">ประเภทสินค้า</label>
-                <p-dropdown *ngIf="productTypes" [options]="productTypes" formControlName="productTypeId" placeholder="Select product type" optionLabel="name" [showClear]="true"></p-dropdown>
-              </div> -->
-                  <div class="field">
-                    <label for="cost">ราคาต้นทุน</label>
-                    <input type="text" pInputText id="cost" formControlName="cost" required autofocus />
-                    <!-- <small class="p-error" *ngIf="submitted && !product.cost"> กรุณาใส่ชื่อสินค้า </small> -->
-                  </div>
-                  <div class="field">
-                    <!-- <label for="img">รูปภาพ</label> -->
-                    <label for="img" class="custom-file-upload">     <i class="fa fa-cloud-upload"></i> เลือกรูปภาพ </label> 
-                    <input type="file" pInputfile id="img" formControlName="img" required autofocus
-                      (change)="readUrl($event)" />
-                      
-                  </div>
-
-
-                  <div class="formgrid grid">
-                    <div class="field col">
-                      <label for="price">ราคา</label>
-                      <input type="number" pInputText id="price" formControlName="price" required autofocus />
-                      <!-- <small class="p-error" *ngIf="submitted && !product.price"> กรุณาใส่ราคาสินค้า </small> -->
-                    </div>
-                    <div class="field col">
-                      <label for="quantity">จำนวน</label>
-                      <input type="number" pInputText id="quantity" formControlName="quantity" required autofocus />
-                      <!-- <small class="p-error" *ngIf="submitted && !product.quantity"> กรุณาใส่จำนวนสินค้า </small> -->
-                    </div>
-                  </div>
-                </form>
-              </ng-template>
-
-              <ng-template pTemplate="footer">
-                <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
-                  (click)="handleDialog(false)"></button>
-                <button pButton pRipple label="บันทึก" icon="pi pi-check" class="p-button-text"
-                  (click)="onSubmit()"></button>
-              </ng-template>
-            </p-dialog>
-
-
-            <p-dialog [(visible)]="dialogDetailForms" [style]="{ width: '450px' }" header="รายละเอียดสินค้า"
-              [modal]="true" styleClass="p-fluid">
-              <ng-template pTemplate="content">
-                <form *ngIf="itemForms" [formGroup]="itemForms">
-                  <div class="flex align-items-center justify-content-between">
-                    <img [src]="itemForms.value.img" width="100%" />
-                  </div>
-                  <div class="field">
-                    <label for="barcode">รหัสบาร์โค้ดสินค้า</label>
-                    <input type="text" pInputText id="barcode" formControlName="barcode" required autofocus />
-                    <!-- <small class="p-error" *ngIf="submitted && !product.barcode"> กรุณาใส่รหัสบาร์โค้ดสินค้า </small> -->
-                  </div>
-                  <div class="field">
-                    <label for="name">ชื่อสินค้า</label>
-                    <input type="text" pInputText id="name" formControlName="name" required autofocus />
-                    <!-- <small class="p-error" *ngIf="submitted && !product.name"> กรุณาใส่ชื่อสินค้า </small> -->
-                  </div>
-                  <div class="field">
-                    <label for="cost">ราคาต้นทุน</label>
-                    <input type="text" pInputText id="cost" formControlName="cost" required autofocus />
-                    <!-- <small class="p-error" *ngIf="submitted && !product.cost"> กรุณาใส่ชื่อสินค้า </small> -->
-                  </div>
-
-
-                  <div class="formgrid grid">
-                    <div class="field col">
-                      <label for="price">ราคา</label>
-                      <input type="number" pInputText id="price" formControlName="price" required autofocus />
-                      <!-- <small class="p-error" *ngIf="submitted && !product.price"> กรุณาใส่ราคาสินค้า </small> -->
-                    </div>
-                    <div class="field col">
-                      <label for="quantity">จำนวน</label>
-                      <input type="number" pInputText id="quantity" formControlName="quantity" required autofocus />
-                      <!-- <small class="p-error" *ngIf="submitted && !product.quantity"> กรุณาใส่จำนวนสินค้า </small> -->
-                    </div>
-                  </div>
-                </form>
-              </ng-template>
-            </p-dialog>
-
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <!-- <h5>Filter Menu</h5> -->
+      <p-table #dt [value]="itemsForSearch" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0">
+        <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+            <div class="col-12 flex">
+              <div class="col-6">
+                <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="search" placeholder="Search..." (input)="onSearchProduct($event)" style="width:100%;"/>
+                </span>
+              </div>
+              <div class="col-6 text-right">
+                <span>
+                  <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"
+                    (click)="insertNewProduct()"></button>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>
+              <div pSortableColumn="img" class="flex justify-content-between align-items-center">
+                รูปภาพ <p-sortIcon field="img"></p-sortIcon>
+                <img src="" alt="">
+                <!-- <p-columnFilter type="text" field="name" display="menu" placeholder="Search by name"></p-columnFilter> -->
+              </div>
+            </th>
+            <th></th>
+            <th>
+              <div pSortableColumn="name" class="flex justify-content-between align-items-center">
+                ชื่อสินค้า
+                <p-columnFilter type="text" field="name" display="menu"
+                  placeholder="Search by country"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="barcode">
+              รหัสบาร์โค้ด <p-sortIcon field="barcode"></p-sortIcon>
+            </th>
+            <th pSortableColumn="quantity">
+              จำนวนที่เหลือ <p-sortIcon field="quantity"></p-sortIcon>
+            </th>
+            <th pSortableColumn="cost">
+              ราคาต้นทุน <p-sortIcon field="cost"></p-sortIcon>
+            </th>
+            <th pSortableColumn="price">
+              ราคาขาย <p-sortIcon field="price"></p-sortIcon>
+            </th>
+            
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr class="p-selectable-row">
+            <td>
+              <img [src]="product.img" width="100px" height="100px" />
+            </td>
+            <td>
+              <button pButton pRipple icon="pi pi-search" class="p-button-rounded p-button-secondary mr-2"
+                (click)="viewDetail(product)"></button>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                (click)="editItem(product)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                (click)="handleConfirmDeleteDialog(true, product)"></button>
+
+            </td>
+            <td>
+              <span class="p-column-title">ชื่อสินค้า</span>
+              <span class="image-text">{{ product.name }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">รหัสบาร์โค้ด</span>
+              {{ product.barcode }}
+            </td>
+            <td>
+              <span class="p-column-title">จำนวน</span>
+              {{ product.quantity }}
+            </td>
+            <td>
+              <span class="p-column-title">ราคาต้นทุน</span>
+              {{ product.cost }}
+            </td>
+            <td>
+              <span class="p-column-title">ราคาขาย</span>
+              {{ product.price }}
+            </td>
+            
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No products found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <p-dialog [(visible)]="confirmDialog" [style]="{width: '350px'}" header="ยืนยันการทำรายการ" [modal]="true"
+        styleClass="p-fluid">
+
+
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
+            (click)="handleConfirmDeleteDialog(false, null)"></button>
+          <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text" (click)="deleteItem()"></button>
+        </ng-template>
+      </p-dialog>
+
+      <p-dialog [(visible)]="dialogForms" [style]="{ width: '450px' }" header="รายละเอียดสินค้า" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+          <form *ngIf="itemForms" [formGroup]="itemForms">
+            <div class="field">
+              <label for="barcode">รหัสบาร์โค้ดสินค้า</label>
+              <input type="text" pInputText id="barcode" formControlName="barcode" required autofocus />
+              <!-- <small class="p-error" *ngIf="submitted && !product.barcode"> กรุณาใส่รหัสบาร์โค้ดสินค้า </small> -->
+            </div>
+            <div class="field">
+              <label for="name">ชื่อสินค้า</label>
+              <input type="text" pInputText id="name" formControlName="name" required autofocus />
+              <!-- <small class="p-error" *ngIf="submitted && !product.name"> กรุณาใส่ชื่อสินค้า </small> -->
+            </div>
+            <!-- <div class="field">
+            <label for="name">ประเภทสินค้า</label>
+            <p-dropdown *ngIf="productTypes" [options]="productTypes" formControlName="productTypeId" placeholder="Select product type" optionLabel="name" [showClear]="true"></p-dropdown>
+          </div> -->
+            <div class="field">
+              <label for="cost">ราคาต้นทุน</label>
+              <input type="text" pInputText id="cost" formControlName="cost" required autofocus />
+              <!-- <small class="p-error" *ngIf="submitted && !product.cost"> กรุณาใส่ชื่อสินค้า </small> -->
+            </div>
+            <div class="field">
+              <!-- <label for="img">รูปภาพ</label> -->
+              <label for="img" class="custom-file-upload"> <i class="fa fa-cloud-upload"></i> เลือกรูปภาพ </label>
+              <input type="file" pInputfile id="img" formControlName="img" required autofocus
+                (change)="readUrl($event)" />
+
+            </div>
+
+
+            <div class="formgrid grid">
+              <div class="field col">
+                <label for="price">ราคา</label>
+                <input type="number" pInputText id="price" formControlName="price" required autofocus />
+                <!-- <small class="p-error" *ngIf="submitted && !product.price"> กรุณาใส่ราคาสินค้า </small> -->
+              </div>
+              <div class="field col">
+                <label for="quantity">จำนวน</label>
+                <input type="number" pInputText id="quantity" formControlName="quantity" required autofocus />
+                <!-- <small class="p-error" *ngIf="submitted && !product.quantity"> กรุณาใส่จำนวนสินค้า </small> -->
+              </div>
+            </div>
+          </form>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
+            (click)="handleDialog(false)"></button>
+          <button pButton pRipple label="บันทึก" icon="pi pi-check" class="p-button-text" (click)="onSubmit()"></button>
+        </ng-template>
+      </p-dialog>
+
+
+      <p-dialog [(visible)]="dialogDetailForms" [style]="{ width: '450px' }" header="รายละเอียดสินค้า" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+          <form *ngIf="itemForms" [formGroup]="itemForms">
+            <div class="flex align-items-center justify-content-between">
+              <img [src]="itemForms.value.img" width="100%" />
+            </div>
+            <div class="field">
+              <label for="barcode">รหัสบาร์โค้ดสินค้า</label>
+              <input type="text" pInputText id="barcode" formControlName="barcode" required autofocus />
+              <!-- <small class="p-error" *ngIf="submitted && !product.barcode"> กรุณาใส่รหัสบาร์โค้ดสินค้า </small> -->
+            </div>
+            <div class="field">
+              <label for="name">ชื่อสินค้า</label>
+              <input type="text" pInputText id="name" formControlName="name" required autofocus />
+              <!-- <small class="p-error" *ngIf="submitted && !product.name"> กรุณาใส่ชื่อสินค้า </small> -->
+            </div>
+            <div class="field">
+              <label for="cost">ราคาต้นทุน</label>
+              <input type="text" pInputText id="cost" formControlName="cost" required autofocus />
+              <!-- <small class="p-error" *ngIf="submitted && !product.cost"> กรุณาใส่ชื่อสินค้า </small> -->
+            </div>
+
+
+            <div class="formgrid grid">
+              <div class="field col">
+                <label for="price">ราคา</label>
+                <input type="number" pInputText id="price" formControlName="price" required autofocus />
+                <!-- <small class="p-error" *ngIf="submitted && !product.price"> กรุณาใส่ราคาสินค้า </small> -->
+              </div>
+              <div class="field col">
+                <label for="quantity">จำนวน</label>
+                <input type="number" pInputText id="quantity" formControlName="quantity" required autofocus />
+                <!-- <small class="p-error" *ngIf="submitted && !product.quantity"> กรุณาใส่จำนวนสินค้า </small> -->
+              </div>
+            </div>
+          </form>
+        </ng-template>
+      </p-dialog>
     </div>
   </div>
 </div>

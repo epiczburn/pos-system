@@ -1,40 +1,24 @@
-<div class="header">
-    <div class="layout-main">
-        <div class="col-12">
-            <div class="card px-6 py-6">
-                <app-menubar></app-menubar>
-            </div>
-        </div>
-    </div>
-</div>
-<br>
-<br>
-
-<div class="layout-main-container">
-    <div class="layout-main">
-        <div class="grid">
-            <div class="col-12">
-                <div class="card px-6 py-6">
-                    <div style="text-align: center;">
-                        <br>
-                        <br>
-                        <p class="font-bold mr-5 text-green-500">ช่องใส่ LINE Token</p>
-                        <span class="p-float-label">
-                            <input id="float-input" type="text" pInputText [(ngModel)]="token">
-                            <label for="float-input"></label>
-                        </span>
-                        <br>
-                        <button pButton pRipple type="button" label="ตกลง" class="p-button-rounded p-button-success"
-                            (click)="addtoken()"></button>
-                        <br><br><br>
-                        <p-image src="https://gcms.in.th/datas/users/www/image/1498228184.png" alt="Image" width="250"
-                            [preview]="true"></p-image>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <div style="text-align: center;">
+                <br>
+                <br>
+                <p class="font-bold mr-5 text-green-500">ช่องใส่ LINE Token</p>
+                <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText [(ngModel)]="token">
+                    <label for="float-input"></label>
+                </span>
+                <br>
+                <button pButton pRipple type="button" label="ตกลง" class="p-button-rounded p-button-success"
+                    (click)="addtoken()"></button>
+                <br><br><br>
+                <p-image src="https://gcms.in.th/datas/users/www/image/1498228184.png" alt="Image" width="250"
+                    [preview]="true"></p-image>
+                <br>
+                <br>
+                <br>
+                <br>
             </div>
         </div>
     </div>

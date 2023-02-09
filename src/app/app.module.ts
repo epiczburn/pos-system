@@ -2,12 +2,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CameraComponent } from './camera/camera.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
+import { AppLayoutModule } from './layout/app.layout.module';
 import { LoginComponent } from './login/login.component';
-import { StoreComponent } from './store/store.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataViewModule } from 'primeng/dataview';
@@ -25,16 +24,10 @@ import { SliderModule } from 'primeng/slider';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ChartModule } from 'primeng/chart';
-import { ButtonComponent } from './button/button.component';
 import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
-import { InputNumberModule } from 'primeng/inputnumber';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { CardModule } from 'primeng/card';
-import { StroreExampleComponent } from './strore-example/strore-example.component';
-import { UsersComponent } from './users/users.component';
-import { ProducttypeComponent } from './producttype/producttype.component';
-import { CompanyComponent } from './company/company.component';
-import { LinenotifyComponent } from './linenotify/linenotify.component';
 import { ImageModule} from 'primeng/image';
 import { LogoutComponent } from './logout/logout.component';
 import { MenubarModule} from 'primeng/menubar';
@@ -42,25 +35,16 @@ import { MenuItem} from 'primeng/api';
 import { MenubarComponent } from './menubar/menubar.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
-    StoreComponent,
-    CameraComponent,
     LoginComponent,
-    DashboardComponent,
-    ButtonComponent,
-    StroreExampleComponent,
-    UsersComponent,
-    ProducttypeComponent,
-    CompanyComponent,
-    LinenotifyComponent,
     LogoutComponent,
     MenubarComponent, 
   ],
   imports: [
     BrowserModule,
+    AppLayoutModule,
     AppRoutingModule,
     FormsModule,
     InputTextModule,
@@ -89,12 +73,12 @@ import { MenubarComponent } from './menubar/menubar.component';
     ReactiveFormsModule,
     InputNumberModule,
     BarcodeScannerLivestreamModule,
-    ZXingScannerModule,
+    ZXingScannerModule ,
     CardModule,
     ImageModule,
     MenubarModule,
   ],
-  providers: [CustomerService,],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },CustomerService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

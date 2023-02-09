@@ -1,6 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
+import { ApiService } from "../api.service";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
@@ -10,11 +12,25 @@ export class AppTopBarComponent {
 
     items!: MenuItem[];
 
-    @ViewChild('menubutton') menuButton!: ElementRef;
+    constructor(public layoutService: LayoutService, private apiService: ApiService, private router: Router) { }
 
-    @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
+    logout() {
+        if (confirm('ยืนยันการออกจากระบบ')) {
+            this.apiService.logout().subscribe((res: any) => {
+                if (res.success) {
+                    alert('Logout สำเร็จ')
+                    this.removeUserInLocalStorage()
+                    this.router.navigate([''])
+                } else {
+                    alert('เกิดข้อผิดพลาดในการ Logout!')
+                }
+            })
+        }
+    }
 
-    @ViewChild('topbarmenu') menu!: ElementRef;
-
-    constructor(public layoutService: LayoutService) { }
+    removeUserInLocalStorage() {
+        localStorage.removeItem('user-shop');
+        localStorage.removeItem('user-profile');
+        localStorage.removeItem('user-role');
+    }
 }

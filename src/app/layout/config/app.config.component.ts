@@ -36,6 +36,9 @@ export class AppConfigComponent {
 
     set menuMode(_val: string) {
         this.layoutService.config.menuMode = _val;
+        if (this.layoutService.isSlim()) {
+            this.menuService.reset();
+        }
     }
 
     get inputStyle(): string {

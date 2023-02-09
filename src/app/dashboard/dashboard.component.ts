@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
@@ -27,6 +26,8 @@ export class DashboardComponent implements OnInit {
 
     rangeDates: Date[];
 
+    totalSum: any;
+
     constructor(private apiService: ApiService, private router: Router){
         var userRole = localStorage.getItem('user-role') ? localStorage.getItem('user-role') : null
         if(!userRole || userRole == 'user'){
@@ -40,20 +41,12 @@ export class DashboardComponent implements OnInit {
         let startDate = new Date(this.rangeDates[0])
         let endDate = new Date(this.rangeDates[1])
 
-        let data = {
+        let dateRange = {
             startDate: startDate.toISOString().toString().substring(0, 10)+ " 00:00:00",
             endDate: endDate.toISOString().toString().substring(0, 10)+ " 23:59:59"
         }
 
-        this.apiService.Reports(data).subscribe((res: any)=>{
-            if(res.success) {
-                this.reports = res.data.products
-                this.reportsForSearch = res.data.products
-                this.loading = false
-            } else  {
-                alert(res.data)
-            }
-        })
+        this.setProductReports(dateRange)
     }
 
     selecttable(){
@@ -62,20 +55,40 @@ export class DashboardComponent implements OnInit {
         let endDate = new Date(this.rangeDates[1])
         endDate.setDate(endDate.getDate()+1)
 
-        let data = {
+        let dateRange = {
             startDate: startDate.toISOString().toString().substring(0, 10)+ " 00:00:00",
             endDate: endDate.toISOString().toString().substring(0, 10)+ " 23:59:59"
         }
 
-        this.apiService.Reports(data).subscribe((res: any)=>{
+        this.setProductReports(dateRange)
+        
+    }
+
+    setProductReports(dateRange){
+        this.apiService.Reports(dateRange).subscribe((res: any)=>{
             if(res.success) {
                 this.reports = res.data.products
                 this.reportsForSearch = res.data.products
+                this.setTotalSum(res.data.products, res.data.total);
+
                 this.loading = false
             } else  {
                 alert(res.data)
             }
         })
+    }
+
+    setTotalSum(products, total){
+        const formatter = new Intl.NumberFormat('th-TH', {
+            style: 'currency',
+            currency: 'THB',
+        });
+
+        this.totalSum = formatter.format(total);
+
+        products.forEach(product => {
+            product['totalSold'] = (product.total / product.quantity).toFixed(2);
+        });
     }
 
     onSearchProduct(event: any){

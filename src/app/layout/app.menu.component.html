@@ -1,11 +1,38 @@
 <ul class="layout-menu">
+    <ng-container>
+        <div class="col-12 flex p-0 m-0 ">
+            <div class="col-6  p-0 m-0">
+                <h4 class="text-secondary">ร้านค้า:</h4>
+            </div>
+            <div class="col-6  p-0 m-0">
+                <h4 class="text-red-600">{{shop}}</h4>
+            </div>
+        </div>
+        <div class="col-12 flex  p-0 m-0">
+            <div class="col-6  p-0 m-0">
+                <h4 class="text-secondary">ชื่อ:</h4>
+            </div>
+            <div class="col-6 p-0 m-0">
+                <h4 class="text-red-600">{{name}}</h4>
+            </div>
+        </div>
+        <div class="col-12 flex  p-0 m-0 border-bottom-3">
+            <div class="col-6  p-0 m-0">
+                <h4 class="text-secondary">ตำแหน่ง:</h4>
+            </div>
+            <div class="col-6  p-0 m-0">
+                <h4 class="text-red-600">{{role}}</h4>
+            </div>
+        </div>
+    </ng-container>
+
     <ng-container *ngFor="let item of model; let i = index;">
         <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
         <li *ngIf="item.separator" class="menu-separator"></li>
     </ng-container>
-    <li>
+    <!-- <li>
         <a href="https://www.primefaces.org/primeblocks-ng/#/">
             <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'banner-primeblocks' : 'banner-primeblocks-dark'}}.png" alt="Prime Blocks" class="w-full mt-3"/>
         </a>
-    </li>
+    </li> -->
 </ul>

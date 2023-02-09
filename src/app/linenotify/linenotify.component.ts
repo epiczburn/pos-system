@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-linenotify',
   templateUrl: './linenotify.component.html',
-  styleUrls: ['./linenotify.component.css']
 })
 export class LinenotifyComponent implements OnInit {
 

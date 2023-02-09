@@ -17,7 +17,7 @@ import { FormControl, FormGroup } from '@angular/forms';
     `]
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
     constructor(public layoutService: LayoutService,private router: Router,private apiService: ApiService) { }
   
     loginForm = new FormGroup({

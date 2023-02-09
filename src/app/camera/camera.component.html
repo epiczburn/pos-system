@@ -1,107 +1,98 @@
-<div class="header">
-
-  <div class="layout-main">
-    <div class="col-12">
-      <div class="card px-6 py-6">
-        <app-menubar></app-menubar>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <div class="camera-container mb-3">
+        <zxing-scanner *ngIf="cameraReady" [formats]="allowedFormats"
+          (scanSuccess)="scanCompleteHandler($event)"></zxing-scanner>
       </div>
+
+      <p-table [value]="sales" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>รูปสินค้า</th>
+            <th>แก้ไขสินค้า</th>
+            <th>รหัสบาร์โค้ด</th>
+            <th>ชื่อสินค้า</th>
+            <th>ราคา</th>
+            <th>จำนวนสินค้า</th>
+            <th>รวม</th>
+            
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sale>
+          <tr class="p-selectable-row">
+            <td>
+              <img [src]="sale.img" width="100px"/>
+            </td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                (click)="editItem(sale)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                (click)="deleteItem(sale)"></button>
+            </td>
+            <td>
+              {{sale.barcode}}
+            </td>
+            <td>
+              {{sale.name}}
+            </td>
+            <td>
+              {{sale.price}} บาท
+            </td>
+            <td>
+              {{sale.quantity}} ชิ้น
+            </td>
+            <td>
+              {{sale.price * sale.quantity}} บาท
+            </td>
+            
+
+          </tr>
+        </ng-template>
+      </p-table>
+      <br><br><br><br>
+      <div class="grid text-center">
+        <div class="col-6"> <button pButton pRipple type="button" label="ยืนยันการขาย" (click)="opendialog()"></button>
+        </div>
+        <!-- <div class="col-6"> <button pButton pRipple type="button" label="confirm"(click)="confirmSale()"></button></div> -->
+        <div class="col-6"> <button pButton pRipple type="button" label="ยกเลิกการขาย" (click)="cancelList()"></button>
+        </div>
+      </div>
+
+      <p-dialog [(visible)]="editdialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+
+          <div class="field">
+            <label for="barcode">แก้ไขจำนวนสินค้า</label>
+            <input type="number" pInputText id="producttype" [(ngModel)]="selectedProduct.quantity" required
+              autofocus />
+          </div>
+
+
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
+            (click)="hideEditDialog()"></button>
+          <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
+            (click)="saveEditDialog()"></button>
+        </ng-template>
+      </p-dialog>
+
+      <p-dialog [(visible)]="cameradialog" [style]="{width: '350px'}" header="ยืนยันการทำรายการ" [modal]="true"
+        styleClass="p-fluid">
+
+
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
+            (click)="hideDialog()"></button>
+          <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
+            (click)="confirmSale()"></button>
+        </ng-template>
+      </p-dialog>
+      <br><br>
     </div>
   </div>
 </div>
-<br>
-<br>
-
-<div class="layout-main-container">
-  <div class="layout-main">
-    <div class="grid">
-      <div class="col-12">
-        <div class="card px-6 py-6">
-          <div class="camera-container mb-3">
-            <zxing-scanner *ngIf="cameraReady" [formats]="allowedFormats"
-              (scanSuccess)="scanCompleteHandler($event)"></zxing-scanner>
-          </div>
-
-          <p-table [value]="sales" dataKey="id" [tableStyle]="{'min-width': '50rem'}">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>รหัสบาร์โค้ด</th>
-                <th>ชื่อสินค้า</th>
-                <th>ราคา</th>
-                <th>จำนวนสินค้า</th>
-                <th>รวม</th>
-                <th>แก้ไขสินค้า</th>
-
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-sale>
-              <tr class="p-selectable-row">
-                <td>
-                  {{sale.barcode}}
-                </td>
-                <td>
-                  {{sale.name}}
-                </td>
-                <td>
-                  {{sale.price}}
-                </td>
-                <td>
-                  {{sale.quantity}}
-                </td>
-                <td>
-                  {{sale.price * sale.quantity}}
-                </td>
-                <td>
-                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                    (click)="editItem(sale)"></button>
-                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
-                    (click)="deleteItem(sale)"></button>
-                </td>
-
-              </tr>
-            </ng-template>
-          </p-table>
-          <br><br><br><br>
-          <div class="grid text-center">
-            <div class="col-6"> <button pButton pRipple type="button" label="ยืนยัน" (click)="opendialog()"></button>
-            </div>
-            <!-- <div class="col-6"> <button pButton pRipple type="button" label="confirm"(click)="confirmSale()"></button></div> -->
-            <div class="col-6"> <button pButton pRipple type="button" label="ยกเลิก" (click)="cancelList()"></button>
-            </div>
-          </div>
-
-          <p-dialog [(visible)]="editdialog" [style]="{width: '450px'}" header="รายละเอียดร้านค้า" [modal]="true"
-            styleClass="p-fluid">
-            <ng-template pTemplate="content">
-
-              <div class="field">
-                <label for="barcode">แก้ไขจำนวนสินค้า</label>
-                <input type="number" pInputText id="producttype" [(ngModel)]="selectedProduct.quantity" required
-                  autofocus />
-              </div>
-
-
-            </ng-template>
-
-            <ng-template pTemplate="footer">
-              <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
-                (click)="hideEditDialog()"></button>
-              <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
-                (click)="saveEditDialog()"></button>
-            </ng-template>
-          </p-dialog>
-
-          <p-dialog [(visible)]="cameradialog" [style]="{width: '350px'}" header="ยืนยันการทำรายการ" [modal]="true"
-            styleClass="p-fluid">
-
-
-            <ng-template pTemplate="footer">
-              <button pButton pRipple label="ยกเลิก" icon="pi pi-times" class="p-button-text"
-                (click)="hideDialog()"></button>
-              <button pButton pRipple label="ตกลง" icon="pi pi-check" class="p-button-text"
-                (click)="confirmSale()"></button>
-            </ng-template>
-          </p-dialog>
-          <br><br>
-        </div>
-      </div>
-    </div>

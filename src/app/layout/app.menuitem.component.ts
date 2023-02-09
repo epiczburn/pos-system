@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Host, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
@@ -7,8 +7,9 @@ import { MenuService } from './app.menu.service';
 import { LayoutService } from './service/app.layout.service';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
+    /* tslint:disable:component-selector */
     selector: '[app-menuitem]',
+    /* tslint:enable:component-selector */
     template: `
 		<ng-container>
             <div *ngIf="root && item.visible !== false" class="layout-menuitem-root-text">{{item.label}}</div>
@@ -19,7 +20,7 @@ import { LayoutService } from './service/app.layout.service';
 				<i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
 			</a>
 			<a *ngIf="(item.routerLink && !item.items) && item.visible !== false" (click)="itemClick($event)" [ngClass]="item.class" 
-			   [routerLink]="item.routerLink" routerLinkActive="active-route" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
+			   [routerLink]="item.routerLink" routerLinkActive="active-route" [routerLinkActiveOptions]="item.routerLinkOptions||{exact: true}"
                [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" 
                [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" [queryParams]="item.queryParams"
                [attr.target]="item.target" tabindex="0" pRipple>
@@ -35,6 +36,10 @@ import { LayoutService } from './service/app.layout.service';
 			</ul>
 		</ng-container>
     `,
+    host: {
+        '[class.layout-root-menuitem]': 'root',
+        '[class.active-menuitem]': 'active'
+    },
     animations: [
         trigger('children', [
             state('collapsed', style({
@@ -42,6 +47,12 @@ import { LayoutService } from './service/app.layout.service';
             })),
             state('expanded', style({
                 height: '*'
+            })),
+            state('hidden', style({
+                display: 'none'
+            })),
+            state('visible', style({
+                display: 'block'
             })),
             transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
         ])
@@ -53,7 +64,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
 
     @Input() index!: number;
 
-    @Input() @HostBinding('class.layout-root-menuitem') root!: boolean;
+    @Input() root!: boolean;
 
     @Input() parentKey!: string;
 
@@ -122,18 +133,25 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
         // toggle active state
         if (this.item.items) {
             this.active = !this.active;
+
+            if (this.root && this.active) {
+                this.layoutService.onOverlaySubmenuOpen();
+            }
+        }
+        else {
+            if (this.layoutService.isMobile()) {
+                this.layoutService.state.staticMenuMobileActive = false;
+            }
         }
 
         this.menuService.onMenuStateChange({ key: this.key });
     }
 
     get submenuAnimation() {
-        return this.root ? 'expanded' : (this.active ? 'expanded' : 'collapsed');
-    }
-
-    @HostBinding('class.active-menuitem') 
-    get activeClass() {
-        return this.active && !this.root;
+        if (this.layoutService.isDesktop() && this.layoutService.isSlim())
+            return this.active ? 'visible' : 'hidden';
+        else
+            return this.root ? 'expanded' : (this.active ? 'expanded' : 'collapsed');
     }
 
     ngOnDestroy() {
