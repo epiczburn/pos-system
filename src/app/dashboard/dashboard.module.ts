@@ -15,6 +15,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
+import { ChartModule } from 'primeng/chart';
+
 
 @NgModule({
     imports: [
@@ -32,7 +34,8 @@ import { CalendarModule } from 'primeng/calendar';
         ReactiveFormsModule,
         PanelMenuModule,
         PasswordModule,
-        DialogModule
+        DialogModule,
+        ChartModule
     ],
     declarations: [DashboardComponent]
 })
