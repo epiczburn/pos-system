@@ -53,6 +53,7 @@ export class StoreComponent implements OnInit {
 
   editItem(selected: any) {
     this.isNew = false;
+    console.log(selected)
     // const productType = this.productTypes.find(ele => {
     //   return ele.name == selected.productType.name
     // })
@@ -67,6 +68,7 @@ export class StoreComponent implements OnInit {
       price: new FormControl(selected.price),
       cost: new FormControl(selected.cost),
       img: new FormControl(selected.img)
+
 
 
     })

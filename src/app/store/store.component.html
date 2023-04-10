@@ -135,7 +135,6 @@
               <!-- <small class="p-error" *ngIf="submitted && !product.cost"> กรุณาใส่ชื่อสินค้า </small> -->
             </div>
             <div class="field">
-              <!-- <label for="img">รูปภาพ</label> -->
               <label for="img" class="custom-file-upload"> <i class="fa fa-cloud-upload"></i> เลือกรูปภาพ </label>
               <input type="file" pInputfile id="img" formControlName="img" required autofocus
                 (change)="readUrl($event)" />
@@ -176,17 +175,17 @@
             <div class="field">
               <label for="barcode">รหัสบาร์โค้ดสินค้า</label>
               <input type="text" pInputText id="barcode" formControlName="barcode" required autofocus />
-              <!-- <small class="p-error" *ngIf="submitted && !product.barcode"> กรุณาใส่รหัสบาร์โค้ดสินค้า </small> -->
+            
             </div>
             <div class="field">
               <label for="name">ชื่อสินค้า</label>
               <input type="text" pInputText id="name" formControlName="name" required autofocus />
-              <!-- <small class="p-error" *ngIf="submitted && !product.name"> กรุณาใส่ชื่อสินค้า </small> -->
+            
             </div>
             <div class="field">
               <label for="cost">ราคาต้นทุน</label>
               <input type="text" pInputText id="cost" formControlName="cost" required autofocus />
-              <!-- <small class="p-error" *ngIf="submitted && !product.cost"> กรุณาใส่ชื่อสินค้า </small> -->
+            
             </div>
 
 
@@ -194,12 +193,12 @@
               <div class="field col">
                 <label for="price">ราคา</label>
                 <input type="number" pInputText id="price" formControlName="price" required autofocus />
-                <!-- <small class="p-error" *ngIf="submitted && !product.price"> กรุณาใส่ราคาสินค้า </small> -->
+               
               </div>
               <div class="field col">
                 <label for="quantity">จำนวน</label>
                 <input type="number" pInputText id="quantity" formControlName="quantity" required autofocus />
-                <!-- <small class="p-error" *ngIf="submitted && !product.quantity"> กรุณาใส่จำนวนสินค้า </small> -->
+                
               </div>
             </div>
           </form>
